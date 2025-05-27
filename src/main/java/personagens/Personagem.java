@@ -2,7 +2,7 @@ package personagens;
 
 public class Personagem {
     protected String nome;
-    protected int pontosDeVida = 100; //PVD
+    protected int pontosDeVida; //PVD
     protected int forcaDeAtaque;
     protected int forcaDeDefesa;
     protected int alcanceDeAtaque;
@@ -15,6 +15,7 @@ public class Personagem {
         this.forcaDeAtaque = forcaDeAtaque;
         this.forcaDeDefesa = forcaDeDefesa;
         this.alcanceDeAtaque = alcanceDeAtaque;
+        this.pontosDeVida = 100;
     }
 
 
