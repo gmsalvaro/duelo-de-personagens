@@ -11,7 +11,7 @@ public class Guerreiro extends Personagem {
 
     }
 
-    protected void usarPoderEspecial(Personagem alvo) {
+    public void usarPoderEspecial(Personagem alvo) {
         System.out.println(this.nome + " ativa Carga Brutal! Seu alcance de ataque é aumentado para 30.");
         this.alcanceDeAtaque = 30; // Define o alcance para 30
         System.out.println("Novo alcance de ataque do " + this.nome + ": " + this.alcanceDeAtaque);

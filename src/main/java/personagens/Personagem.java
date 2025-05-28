@@ -13,7 +13,7 @@ public class Personagem { // Classe Mãe
     protected int coluna;
 
     //Contrutor
-    public Personagem(String nome, int forcaDeAtaque, int forcaDeDefesa, int alcanceDeAtaque){
+    public Personagem(String nome, int forcaDeAtaque, int forcaDeDefesa, int alcanceDeAtaque) {
         this.nome = nome;
         this.forcaDeAtaque = forcaDeAtaque;
         baseDefesa = this.forcaDeDefesa = forcaDeDefesa;
@@ -72,15 +72,15 @@ public class Personagem { // Classe Mãe
         this.coluna = coluna;
     }
 
-    public void receberDano(int dano){
+    public void receberDano(int dano) {
         //Não levei em consideração a defesa ainda !!!!
         this.pontosDeVida -= dano;
-        if(this.pontosDeVida < 0)
-            this.pontosDeVida =0;
+        if (this.pontosDeVida < 0)
+            this.pontosDeVida = 0;
     }
 
     public void restaurarDefesa() {
-        this.forcaDeDefesa = this.baseDefesa ;
+        this.forcaDeDefesa = this.baseDefesa;
         System.out.println(this.nome + " restaurou sua defesa para " + this.forcaDeDefesa + ".");
     }
 
@@ -99,8 +99,11 @@ public class Personagem { // Classe Mãe
         alvo.setForcaDeDefesa(alvo.baseDefesa);
     }
 
+    public void usarPoderEspecial(Personagem alvo) {
+    }
+
     public boolean estaVivo() {
-        if(this.pontosDeVida > 0)
+        if (this.pontosDeVida > 0)
             return true;
         return false;
     }

@@ -10,10 +10,10 @@ public class Arqueiro extends Personagem {
          alcanceDeAtaque = 5; */
          }
 
-    protected void usarPoderEspecial(){
+    public void usarPoderEspecial(Personagem alvo){
         //"Flecha Precisa": O arqueiro incrementa permanentemente um no seu alcance.
         System.out.println(this.nome + " ativa Flecha Precisa! Seu alcance de ataque aumenta permanentemente.");
-        this.alcanceDeAtaque += 1; // Incrementa o alcance permanentemente
-        System.out.println("Novo alcance de ataque do " + this.nome + ": " + this.alcanceDeAtaque);
+        this.setAlcanceDeAtaque(this.getAlcanceDeAtaque() + 1 );  //Incrementa o alcance permanentemente
+        System.out.println("Novo alcance de ataque do " + this.getNome() + ": " + this.getAlcanceDeAtaque());
     }
 }

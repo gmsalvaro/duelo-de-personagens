@@ -10,7 +10,7 @@ public class Mago extends Personagem {
          alcanceDeAtaque = 3; */
     }
 
-    protected void usarPoderEspecial(Personagem alvo) {
+    protected void ativarPoderEspecial(Personagem alvo) {
         //“Trocar vida”: O mago troca o seu pontosDeVida com o do oponente.
         int aux = this.pontosDeVida;
         this.pontosDeVida = alvo.getPontosDeVida();

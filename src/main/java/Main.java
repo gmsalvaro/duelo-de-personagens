@@ -5,6 +5,7 @@ public class Main {
     public static void main(String[] args) {
 
         //Teste de
+        Personagem alvo = new Arqueiro("Inimigo");
         Personagem meuPersonagem = new Arqueiro("Robin Hood"); // Exemplo
         System.out.println("Nome: " + meuPersonagem.getNome());
         //System.out.println("Tipo: " + meuPersonagem.getTipo());
@@ -13,6 +14,10 @@ public class Main {
         System.out.println("Defesa: " + meuPersonagem.getForcaDeDefesa());
         System.out.println("Alcance: " + meuPersonagem.getAlcanceDeAtaque());
         System.out.println(meuPersonagem.estaVivo());
+
+
+        meuPersonagem.usarPoderEspecial(alvo);
+        System.out.println("Alcance: " + meuPersonagem.getAlcanceDeAtaque());
 
         }
 }
