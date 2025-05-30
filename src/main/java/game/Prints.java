@@ -1,6 +1,6 @@
 package game;
 
-public class Console {
+public class Prints {
 
     //interface no terminal;
     //funções das ações;
