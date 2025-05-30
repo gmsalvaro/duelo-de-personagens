@@ -62,6 +62,8 @@ public class Personagem { // Classe Mãe
         this.pontosDeVida = pontosDeVida;
     }
 
+    public void setForcaDeAtaque(int forcaDeAtaque){ this.forcaDeAtaque = forcaDeAtaque; }
+
     public void setForcaDeDefesa(int forcaDeDefesa) {
         this.forcaDeDefesa = forcaDeDefesa;
     }
