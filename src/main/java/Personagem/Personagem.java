@@ -1,4 +1,4 @@
-package personagens;
+package Personagem;
 
 public class Personagem { // Classe Mãe
     protected String type;
@@ -19,6 +19,9 @@ public class Personagem { // Classe Mãe
         baseDefesa = this.forcaDeDefesa = forcaDeDefesa;
         this.alcanceDeAtaque = alcanceDeAtaque;
         this.pontosDeVida = 100;
+        this.linha = -1;
+        this.coluna = -1;
+
     }
 
     //Getters
@@ -71,6 +74,7 @@ public class Personagem { // Classe Mãe
         this.linha = linha;
         this.coluna = coluna;
     }
+
 
     public void receberDano(int dano) {
         //Não levei em consideração a defesa ainda !!!!
