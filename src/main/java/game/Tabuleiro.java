@@ -29,7 +29,7 @@ import java.util.Random;
             do {
                 linhaP1 = aleatorio.nextInt(TAMANHO);
                 colunaP1 = aleatorio.nextInt(TAMANHO);
-            } while (verificaOcupacao(linhaP1, colunaP1)); // Continua enquanto a posição não for vazia
+            } while (!posicaoVazia(linhaP1, colunaP1)); // Continua enquanto a posição não for vazia
 
             // Define a posição no objeto Personagem
             player1.setPosition(linhaP1, colunaP1);
@@ -41,7 +41,7 @@ import java.util.Random;
             do {
                 linhaP2 = aleatorio.nextInt(TAMANHO);
                 colunaP2 = aleatorio.nextInt(TAMANHO);
-            } while (!verificaOcupacao(linhaP2, colunaP2)); // Continua enquanto a posição não for vazia
+            } while (!posicaoVazia(linhaP2, colunaP2)); // Continua enquanto a posição não for vazia
 
             // Define a posição no objeto Personagem
             player2.setPosition(linhaP2, colunaP2);
@@ -83,7 +83,7 @@ import java.util.Random;
 
         //Verificar se a posição estar Ocupada;
 
-        public boolean verificaOcupacao(int linha, int coluna) {
+        public boolean posicaoVazia(int linha, int coluna) {
             if (!verificaPosicao(linha, coluna)) {
                 return false; // Se a posição não é válida, não pode ser vazia
             }
