@@ -1,23 +1,10 @@
 import Personagem.Personagem;
-import Personagem.Arqueiro;
+import Personagem.*;
+import game.*;
 
 public class Main {
     public static void main(String[] args) {
-
-        //Teste de
-        Personagem alvo = new Arqueiro("Inimigo");
-        Personagem meuPersonagem = new Arqueiro("Robin Hood"); // Exemplo
-        System.out.println("Nome: " + meuPersonagem.getNome());
-        //System.out.println(A"Tipo: " + meuPersonagem.getTipo());
-        System.out.println("PV: " + meuPersonagem.getPontosDeVida());
-        System.out.println("Força de Ataque: " + meuPersonagem.getForcaDeAtaque());
-        System.out.println("Defesa: " + meuPersonagem.getForcaDeDefesa());
-        System.out.println("lcance: " + meuPersonagem.getAlcanceDeAtaque());
-        System.out.println(meuPersonagem.estaVivo());
-
-
-        meuPersonagem.usarPoderEspecial(alvo);
-        System.out.println("Alcance: " + meuPersonagem.getAlcanceDeAtaque());
-
-        }
+        Game game;
+        game = new Game();
+    }
 }
