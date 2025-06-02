@@ -13,7 +13,7 @@ public class Personagem { // Classe Mãe
     protected int coluna;
 
     //Contrutor
-    public Personagem(String nome, int forcaDeAtaque, int forcaDeDefesa, int alcanceDeAtaque) {
+     Personagem(String nome, int forcaDeAtaque, int forcaDeDefesa, int alcanceDeAtaque) {
         this.nome = nome;
         this.forcaDeAtaque = forcaDeAtaque;
         baseDefesa = this.forcaDeDefesa = forcaDeDefesa;
