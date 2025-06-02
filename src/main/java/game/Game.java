@@ -104,9 +104,9 @@ public class Game {
             prints.imprimirStatus(player1,ia);
             tabuleiro.exibirTabuleiro();
             //Player 1
-            gameAcao(player1, ia);
+            gameAcaoIA(player1, ia);
             //IA
-            gameAcao(ia,player1);
+            gameAcaoIA(ia,player1);
         }
         prints.mensagemFinal(player1,ia);
 
@@ -135,6 +135,31 @@ public class Game {
         }
 
     }
+
+public void gameAcaoIA(PlayerIA ia, Personagem player ){
+    // atacante representa quem vai executar a ação no turno e defensor quem receberá a ação
+    Prints prints = new Prints();
+    int escolhas = prints.escolherAcao();
+    switch (escolhas){
+        case 1:
+            player.atacar(ia);
+            break;
+        case 2://Defender
+            player.restaurarDefesa();
+            break;
+        case 3:// Mover
+
+            break;
+        case 4:// ataque especial
+            player.usarPoderEspecial(ia);
+            break;
+    }
+
+
+
+ }
+
+}
 
 
 
