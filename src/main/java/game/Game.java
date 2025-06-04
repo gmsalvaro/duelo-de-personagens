@@ -8,7 +8,7 @@ public class Game {
     private Tabuleiro tabuleiro;
     private Personagem player1;
     private Personagem player2;
-    private PlayerIA ia;
+    private Personagem  ia;
 
 
     public Game() {
@@ -68,33 +68,46 @@ public class Game {
         return player;
     }
 
+    // cria personagem IA
+    public Personagem escolherIA() {
+        int val;
+        Scanner teclado = new Scanner(System.in);
+        System.out.println("Qual bot gostaria de enfrentar?(Insira o numero de referencia!) ");
+        System.out.println("1 - Arqueiro, 2- Guerreiro, 3-Mago ");
+        do {
+            val = teclado.nextInt();
+        }
+        while(val > 3 && val < 1 ); //Validador de valores, podendo inserir apenas entre 1 e 3
+
+        switch(val) //escolha de IA
+        {
+            case 1:
+                ia = new Arqueiro("Legolas");
+                break;
+
+            case 2:
+                ia = new Guerreiro("Garrosh");
+                break;
+
+            case 3:
+                ia = new Mago("Ryze");
+                break;
+
+        }
+        return ia;
+    }
+
+
+
+
+
     public void gamePlayerXIA(){
 
         Prints prints = new Prints();
-        int valor;
+       // int valor;
         System.out.println("Escolha Player1: "); //Melhorar
         player1 = escolhaPersonagem();
-            Scanner teclado = new Scanner(System.in);
-            System.out.println("Qual bot gostaria de enfrentar?(Insira o numero de referencia!) ");
-            System.out.println("1 - Arqueiro, 2- Guerreiros, 3-Mago ");
-            //Criar validador para entrada
-            valor = teclado.nextInt();
-
-            switch(valor) //escolha de IA
-            {
-                case 1:
-                    ia = new PlayerIA("Legolas",8,5,5);
-                    break;
-
-                case 2:
-                    ia = new PlayerIA("Garrosh",15,10,1);
-                    break;
-
-                case 3:
-                    ia = new PlayerIA("Ryze",10,7,3);
-                    break;
-
-            }
+        player2 = escolherIA();
         this.tabuleiro = new Tabuleiro(player1, ia);
         System.out.println("Iniciando Duelo de Personagens!");
         System.out.println("---------------------------------");
@@ -103,6 +116,9 @@ public class Game {
         while(player1.estaVivo() && ia.estaVivo()) { //Enquanto estiverem vivos vai rodar;
             prints.imprimirStatus(player1,ia);
             tabuleiro.exibirTabuleiro();
+
+            //Implementar Forma de randomizar quem inicia o turno Inicial!!(Lembrando este loop e o jogo inteiro nao alterar dentro dele)
+
             //Player 1
             gameAcaoIA(player1, ia);
             //IA
@@ -134,28 +150,26 @@ public class Game {
 
         }
 
-    }
 
-public void gameAcaoIA(PlayerIA ia, Personagem player ){
+
+public void gameAcaoIA(Personagem atacante, Personagem defensor ){
     // atacante representa quem vai executar a ação no turno e defensor quem receberá a ação
     Prints prints = new Prints();
     int escolhas = prints.escolherAcao();
     switch (escolhas){
         case 1:
-            player.atacar(ia);
+            atacante.atacar(defensor);
             break;
         case 2://Defender
-            player.restaurarDefesa();
+            atacante.restaurarDefesa();
             break;
         case 3:// Mover
 
             break;
         case 4:// ataque especial
-            player.usarPoderEspecial(ia);
+            atacante.usarPoderEspecial(defensor);
             break;
     }
-
-
 
  }
 
