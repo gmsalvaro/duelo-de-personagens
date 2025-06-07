@@ -1,4 +1,5 @@
 package Personagem;
+import game.Tabuleiro;
 
 public class Personagem { // Classe Mãe
     protected String type;
@@ -53,9 +54,6 @@ public class Personagem { // Classe Mãe
         return coluna;
     }
 
-    public String getType() {
-        return type;
-    }
 
     //Setters
     public void setPontosDeVida(int pontosDeVida) {
@@ -90,12 +88,23 @@ public class Personagem { // Classe Mãe
 
     public int calcularDano(Personagem alvo) {
         // O dano é força de ataque do atacante - força de defesa do alvo
-        return this.forcaDeAtaque - alvo.getForcaDeDefesa();
+        return Math.max(0, this.forcaDeAtaque - alvo.getForcaDeDefesa());
     }
+//    public void defender(Personagem atacante){
+//         setForcaDeDefesa(Math.max(0, getForcaDeDefesa() - atacante.getForcaDeAtaque()));
+//    }
 
     public void atacar(Personagem alvo) {
-        System.out.println(this.nome + " ataca " + alvo.getNome() + "!");
+        if(calcularDistancia(alvo) > getAlcanceDeAtaque()) {
+            System.out.println("Erro: Alcance invalido/n");
+            return;
+        }
         int danoCausado = calcularDano(alvo);
+        if( danoCausado <= 0){
+            System.out.println("o Alvo não sofreu dano/n");
+            return;
+        }
+        System.out.println(getNome() + " ataca " + alvo.getNome() + "!");
         alvo.receberDano(danoCausado);
         System.out.println(alvo.getNome() + " sofreu " + danoCausado + " de dano. PV restantes: " + alvo.getPontosDeVida());
 
@@ -103,11 +112,17 @@ public class Personagem { // Classe Mãe
         alvo.setForcaDeDefesa(alvo.baseDefesa);
     }
 
+    public int calcularDistancia( Personagem p2){
+        int distLinha = Math.abs(getLinha() - p2.getLinha());
+        int distColuna = Math.abs(getCol() - p2.getCol());
+        return distLinha + distColuna;
+    }
+
     public void usarPoderEspecial(Personagem alvo) {
     }
 
     public boolean estaVivo() {
-        if (this.pontosDeVida > 0)
+        if(getPontosDeVida() > 0)
             return true;
         return false;
     }

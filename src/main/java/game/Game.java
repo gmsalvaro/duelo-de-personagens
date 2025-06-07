@@ -79,15 +79,37 @@ public class Game {
                 player1.restaurarDefesa();
                 break;
             case 3:// Mover
-
+                mover(player1);
                 break;
             case 4:// taque especial
                 player1.usarPoderEspecial(player2);
                 break;
             }
-
         }
 
+
+    public void mover(Personagem player1){
+        Prints prints = new Prints();
+        int escolha = prints.escolherPosicao();
+        int linha = player1.getLinha();
+        int coluna = player1.getCol();
+        switch (escolha) {
+            case 1: // Cima
+                tabuleiro.moverPersonagem(player1, linha - 1, coluna);
+                break;
+            case 2://Baixo
+                tabuleiro.moverPersonagem(player1, linha + 1, coluna);
+
+                break;
+            case 3:// Esquerda
+                tabuleiro.moverPersonagem(player1, linha, coluna + 1);
+                break;
+            case 4:// Direita
+                tabuleiro.moverPersonagem(player1, linha, coluna - 1);
+                break;
+        }
+        tabuleiro.exibirTabuleiro();
     }
+}
 
 

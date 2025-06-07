@@ -3,11 +3,12 @@ package game;
 import Personagem.Personagem;
 
 import java.util.Random;
+import java.util.Scanner;
 
 
-    public class Tabuleiro {
+public class Tabuleiro {
         private static final int TAMANHO = 10; // Definindo o tamanho do tabuleiro como uma constante
-        private String[][] tabuleiro; // Renomeado para 'tabuleiro' para clareza
+        private String[][] tabuleiro;
         private Personagem player1;
         private Personagem player2;
         private static final Random aleatorio = new Random();
@@ -29,7 +30,7 @@ import java.util.Random;
             do {
                 linhaP1 = aleatorio.nextInt(TAMANHO);
                 colunaP1 = aleatorio.nextInt(TAMANHO);
-            } while (!posicaoVazia(linhaP1, colunaP1)); // Continua enquanto a posição não for vazia
+            } while (posicaoVazia(linhaP1, colunaP1)); // Continua enquanto a posição não for vazia
 
             // Define a posição no objeto Personagem
             player1.setPosition(linhaP1, colunaP1);
@@ -41,7 +42,7 @@ import java.util.Random;
             do {
                 linhaP2 = aleatorio.nextInt(TAMANHO);
                 colunaP2 = aleatorio.nextInt(TAMANHO);
-            } while (!posicaoVazia(linhaP2, colunaP2)); // Continua enquanto a posição não for vazia
+            } while (posicaoVazia(linhaP2, colunaP2)); // Continua enquanto a posição não for vazia
 
             // Define a posição no objeto Personagem
             player2.setPosition(linhaP2, colunaP2);
@@ -53,23 +54,17 @@ import java.util.Random;
         }
 
 
-        private boolean posicionarTabuleiro(int linha, int coluna, Personagem personagem) {
+        private void posicionarTabuleiro(int linha, int coluna, Personagem personagem) {
             if (verificaPosicao(linha, coluna)) {
                 tabuleiro[linha][coluna] = String.valueOf(personagem.getNome().charAt(0)); // Melhorar;
-                return true;
             }
-            System.out.println("Erro: Posição inválida.");
-            return false;
         }
 
 
-        public boolean liberaPosicao(int linha, int coluna) {
+        public void liberaPosicao(int linha, int coluna) {
             if (verificaPosicao(linha, coluna)) {
                 tabuleiro[linha][coluna] = "."; // Preencher o tabuleiro com ponto na posição (provavelmente pós se mover);
-                return true;
             }
-            System.out.println("Erro: Posição inválida.");
-            return false;
         }
 
         //Preencher todo o tabuleiro;
@@ -85,13 +80,13 @@ import java.util.Random;
 
         public boolean posicaoVazia(int linha, int coluna) {
             if (!verificaPosicao(linha, coluna)) {
-                return false; // Se a posição não é válida, não pode ser vazia
+                return true; // Se a posição não é válida, não pode ser vazia
             }
             // Verifica se a posição não é a do player1 e não é a do player2
             boolean ocupadaPorP1 = (player1 != null && player1.getLinha() == linha && player1.getCol() == coluna);
             boolean ocupadaPorP2 = (player2 != null && player2.getLinha() == linha && player2.getCol() == coluna);
 
-            return !(ocupadaPorP1 || ocupadaPorP2); // Retorna true se NÃO estiver ocupada
+            return ocupadaPorP1 || ocupadaPorP2; // Retorna true se NÃO estiver ocupada
         }
 
 
@@ -125,57 +120,38 @@ import java.util.Random;
         }
 
         //
-        public int calcularDistancia(Personagem p1, Personagem p2) { //Verificar esse calculo
-            int distLinha = Math.abs(p1.getLinha() - p2.getLinha());
-            int distColuna = Math.abs(p1.getCol() - p2.getCol());
+        public int calcularDistancia() { //Verificar esse calculo
+            int distLinha = Math.abs(player1.getLinha() - player2.getLinha());
+            int distColuna = Math.abs(player1.getCol() - player2.getCol());
             return distLinha + distColuna;
         }
 
-
         //Metodo para mover o personagem
-       /* public boolean moverPersonagem(Personagem personagem, int novaLinha, int novaColuna) {
-            // Validação básica da nova posição no tabuleiro (limites)
+        public void moverPersonagem(Personagem playerAcao, int novaLinha, int novaColuna) {
+
             if (!verificaPosicao(novaLinha, novaColuna)) {
-                System.out.println("Movimento inválido para " + personagem.getNome() + ": Posição (" + novaLinha + "," + novaColuna + ") fora dos limites do tabuleiro.");
-                return false;
+                System.out.println("Movimento inválido para " + playerAcao.getNome() + ": Posição (" + novaLinha + "," + novaColuna + ") fora dos limites do tabuleiro.");
+                return;
             }
-
             // Validação se a nova posição está logicamente ocupada por OUTRO personagem
-            Personagem personagemNaNovaPosicao = obterPersonagemNaPosicaoLogica(novaLinha, novaColuna);
-            if (personagemNaNovaPosicao != null && personagemNaNovaPosicao != personagem) { // Verifica se há outro personagem
-                System.out.println("Movimento inválido para " + personagem.getNome() + ": Posição (" + novaLinha + "," + novaColuna + ") já ocupada por " + personagemNaNovaPosicao.getNome() + ".");
-                return false;
+            if(posicaoVazia(novaLinha, novaColuna)){ // se estiver cheia retornara false, logo sera true
+                if(playerAcao.getLinha() == novaLinha && playerAcao.getCol() == novaColuna){
+                    System.out.println("Movimento inválido para " + playerAcao.getNome() + ": Posição (" + novaLinha + "," + novaColuna + ") voce oucupa essa posição.");
+                    return;
+                }
+                System.out.println("Movimento inválido para " + playerAcao.getNome() + ": Posição (" + novaLinha + "," + novaColuna + ") já estar ocupado.");
+                return;
             }
-
             // Se o movimento é válido logicamente:
-            int linhaAntiga = personagem.getLinha();
-            int colunaAntiga = personagem.getCol();
+            int linhaAntiga = playerAcao.getLinha();
+            int colunaAntiga = playerAcao.getCol();
+            playerAcao.setPosition(novaLinha, novaColuna);
 
-            // 1. ATUALIZA A LÓGICA: Define a nova posição no objeto Personagem
-            personagem.setPosition(novaLinha, novaColuna);
-
-            // 2. ATUALIZA O VISUAL do Tabuleiro: Libera a posição antiga e marca a nova
+            // Libera a posição antiga e marca a nova
             liberaPosicao(linhaAntiga, colunaAntiga); // Libera a posição antiga
-            posicionarTabuleiro(novaLinha, novaColuna, personagem); // Marca a nova posição
-
-            System.out.println(personagem.getNome() + " moveu de (" + linhaAntiga + "," + colunaAntiga + ") para (" + novaLinha + "," + novaColuna + ").");
-            return true;
+            posicionarTabuleiro(novaLinha, novaColuna, playerAcao); // Marca a nova posição
+            System.out.println(playerAcao.getNome() + " moveu de (" + linhaAntiga + "," + colunaAntiga + ") para (" + novaLinha + "," + novaColuna + ").");
+            //exibir tabela atualizada
         }
-
-         //Retorna o personagem que está logicamente na posição especificada.
-         // Esta é a verificação de ocupação LÓGICA.
-        public Personagem obterPersonagemNaPosicaoLogica(int linha, int coluna) {
-            // Verifica se player1 está na posição
-            if (player1 != null && player1.getLinha() == linha && player1.getCol() == coluna) {
-                return player1;
-            }
-            // Verifica se player2 está na posição
-            if (player2 != null && player2.getLinha() == linha && player2.getCol() == coluna) {
-                return player2;
-            }
-            return null; // Ninguém na posição
-        }
-        */
-
     }
 
