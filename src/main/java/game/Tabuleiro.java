@@ -135,7 +135,6 @@ public class Tabuleiro {
             liberaPosicao(linhaAntiga, colunaAntiga); // Libera a posição antiga
             posicionarTabuleiro(novaLinha, novaColuna, playerAcao); // Marca a nova posição
             System.out.println(playerAcao.getNome() + " moveu de (" + linhaAntiga + "," + colunaAntiga + ") para (" + novaLinha + "," + novaColuna + ").");
-            //exibir tabela atualizada
         }
     }
 

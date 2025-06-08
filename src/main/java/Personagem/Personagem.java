@@ -103,7 +103,7 @@ public class Personagem { // Classe Mãe
         alvo.receberDano(danoCausado);
         System.out.println(alvo.getNome() + " sofreu " + danoCausado + " de dano. PV restantes: " + alvo.getPontosDeVida());
         // Regra: Após o ataque, qualquer efeito de defesa temporária no alvo é removido, ou seja, defesa volta ao inicial.
-        alvo.setForcaDeDefesa(alvo.baseDefesa);
+        //alvo.setForcaDeDefesa(alvo.baseDefesa);
     }
 
     public int calcularDistancia( Personagem p2){
