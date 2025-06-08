@@ -33,11 +33,9 @@ public class Game {
         player1 = escolhaPersonagem();
         System.out.println("Escolha Player2: "); // Melhorar
         player2 = escolhaPersonagem();
-        this.tabuleiro = new Tabuleiro(player1, player2);
         System.out.println("Iniciando Duelo de Personagens!");
         System.out.println("---------------------------------");
-        tabuleiro.definirPosicoesIniciaisAleatorias();
-
+        this.tabuleiro = new Tabuleiro(player1, player2);
         while(player1.estaVivo() && player2.estaVivo()) { //Enquanto estiverem vivos vai rodar;
             prints.imprimirStatus(player1,player2);
             tabuleiro.exibirTabuleiro();
@@ -141,16 +139,13 @@ public class Game {
                 atacante.restaurarDefesa();
                 break;
             case 3:// Mover
-
+                mover(player1);
                 break;
             case 4:// ataque especial
                 atacante.usarPoderEspecial(defensor);
                 break;
             }
-
         }
-
-
 
 public void gameAcaoIA(Personagem atacante, Personagem defensor ){
     // atacante representa quem vai executar a ação no turno e defensor quem receberá a ação
@@ -170,6 +165,7 @@ public void gameAcaoIA(Personagem atacante, Personagem defensor ){
             atacante.usarPoderEspecial(defensor);
             break;
     }
+}
 
  }
 

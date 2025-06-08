@@ -54,10 +54,11 @@ public class Prints {
     }
 
     public void imprimirStatus( Personagem player1, Personagem player2){ //Melhorar depois
-        System.out.println(player1.getNome() + "                 " + player2.getNome());
-        System.out.println(player1.getPontosDeVida() + "                 " + player2.getPontosDeVida());
-        System.out.println(player1.getForcaDeDefesa() + "                 " + player2.getForcaDeDefesa());
-
+        System.out.println("---------------------------------");
+        System.out.printf("%-15s %-15s\n", player1.getNome(), player2.getNome());
+        System.out.printf("PV: %-13d PV: %-13d\n", player1.getPontosDeVida(), player2.getPontosDeVida());
+        System.out.printf("DEF: %-12d DEF: %-12d\n", player1.getForcaDeDefesa(), player2.getForcaDeDefesa());
+        System.out.println("---------------------------------");
     }
 
     public int escolherAcao(){
@@ -78,7 +79,33 @@ public class Prints {
         return escolha;
     }
 
-    public void mensagemFinal(Personagem player1, Personagem player2){
+
+    public int escolherPosicao(){
+        int escolha = -1;
+        boolean entradaValida = false;
+        System.out.println("1. C");
+        System.out.println("2. B");
+        System.out.println("3. E");
+        System.out.println("4. D");
+        while (!entradaValida) {
+            escolha = teclado.nextInt();
+            if (escolha == 1 || escolha == 2 || escolha == 3 || escolha == 4) {
+                entradaValida = true;
+            } else {
+                System.out.println("Opção inválida. Por favor, digite 1, 2, 3 e 4.");
+            }
+        }
+        return escolha;
+    }
+
+
+
+
+
+
+
+
+        public void mensagemFinal(Personagem player1, Personagem player2){
         if(player1.estaVivo()){
             System.out.println("Parabens ao " + player1.getNome());
         } else {
@@ -86,5 +113,7 @@ public class Prints {
         }
     //fazer com que o jogo retorne novamente;
     }
+
+
 
 }
