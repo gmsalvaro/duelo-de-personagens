@@ -12,7 +12,7 @@ public class Personagem { // Classe Mãe
     protected int coluna;
 
     //Contrutor
-    public Personagem(String nome, int forcaDeAtaque, int forcaDeDefesa, int alcanceDeAtaque) {
+     Personagem(String nome, int forcaDeAtaque, int forcaDeDefesa, int alcanceDeAtaque) {
         this.nome = nome;
         this.forcaDeAtaque = forcaDeAtaque;
         baseDefesa = this.forcaDeDefesa = forcaDeDefesa;
@@ -56,6 +56,8 @@ public class Personagem { // Classe Mãe
     public void setPontosDeVida(int pontosDeVida) {
         this.pontosDeVida = pontosDeVida;
     }
+
+    public void setForcaDeAtaque(int forcaDeAtaque){ this.forcaDeAtaque = forcaDeAtaque; }
 
     public void setForcaDeDefesa(int forcaDeDefesa) {
         this.forcaDeDefesa = forcaDeDefesa;
