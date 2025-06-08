@@ -3,11 +3,10 @@ package game;
 import Personagem.Personagem;
 
 import java.util.Random;
-import java.util.Scanner;
 
 
 public class Tabuleiro {
-        private int TAMANHO = 10; // Definindo o tamanho do tabuleiro como uma constante
+        private int tamanho = 10;
         private String[][] tabuleiro;
         private Personagem player1;
         private Personagem player2;
@@ -15,7 +14,7 @@ public class Tabuleiro {
 
         // Construtor do Tabuleiro
         public Tabuleiro(Personagem p1, Personagem p2) {
-            this.tabuleiro = new String[TAMANHO][TAMANHO];
+            this.tabuleiro = new String[tamanho][tamanho];
             this.player1 = p1;
             this.player2 = p2;
             inicializaTabuleiro();
@@ -26,16 +25,16 @@ public class Tabuleiro {
             System.out.println("Posicionando personagens aleatoriamente no tabuleiro...");
             int linhaP1, colunaP1;
             do {
-                linhaP1 = numAleatorio.nextInt(TAMANHO);
-                colunaP1 = numAleatorio.nextInt(TAMANHO);
+                linhaP1 = numAleatorio.nextInt(tamanho);
+                colunaP1 = numAleatorio.nextInt(tamanho);
             } while (verificaVazia(linhaP1, colunaP1));
             player1.setPosition(linhaP1, colunaP1);
             posicionarTabuleiro(linhaP1, colunaP1, player1);
 
             int linhaP2, colunaP2;
             do {
-                linhaP2 = numAleatorio.nextInt(TAMANHO);
-                colunaP2 = numAleatorio.nextInt(TAMANHO);
+                linhaP2 = numAleatorio.nextInt(tamanho);
+                colunaP2 = numAleatorio.nextInt(tamanho);
             } while (verificaVazia(linhaP2, colunaP2));
             player2.setPosition(linhaP2, colunaP2);
             posicionarTabuleiro(linhaP2, colunaP2, player2);
@@ -48,13 +47,13 @@ public class Tabuleiro {
                 tabuleiro[linha][coluna] = String.valueOf(personagem.getNome().charAt(0));
         }
 
-        public void liberaPosicao(int linha, int coluna) {
+        private void liberaPosicao(int linha, int coluna) {
                 tabuleiro[linha][coluna] = "."; // Preencher o tabuleiro com ponto na posição (provavelmente pós se mover);
         }
 
         private void inicializaTabuleiro() {
-            for (int i = 0; i < TAMANHO; i++) {
-                for (int j = 0; j < TAMANHO; j++) {
+            for (int i = 0; i < tamanho; i++) {
+                for (int j = 0; j < tamanho; j++) {
                     tabuleiro[i][j] = ".";
                 }
             }
@@ -62,7 +61,7 @@ public class Tabuleiro {
 
         //Verificar se a posição estar Ocupada;
 
-        public boolean verificaVazia(int linha, int coluna) {
+        private boolean verificaVazia(int linha, int coluna) {
             if (!verificaPosicao(linha, coluna)) {
                 return true; // Se a posição não é válida, não pode ser vazia
             }
@@ -75,8 +74,8 @@ public class Tabuleiro {
 
 
 
-        public boolean verificaPosicao(int linha, int coluna) {
-            return linha >= 0 && linha < TAMANHO && coluna >= 0 && coluna < TAMANHO;
+        private boolean verificaPosicao(int linha, int coluna) {
+            return linha >= 0 && linha < tamanho && coluna >= 0 && coluna < tamanho;
         }
 
 
@@ -86,16 +85,16 @@ public class Tabuleiro {
             System.out.println("\n--- TABULEIRO ---");
             // Cabeçalho das colunas
             System.out.print("   ");
-            for (int j = 0; j < TAMANHO; j++) {
+            for (int j = 0; j < tamanho; j++) {
                 System.out.printf("%2d ", j);
             }
             System.out.println();
-            System.out.println("   " + "---".repeat(TAMANHO)); // Linha divisória
+            System.out.println("   " + "---".repeat(tamanho)); // Linha divisória
 
             // Conteúdo do tabuleiro
-            for (int i = 0; i < TAMANHO; i++) {
+            for (int i = 0; i < tamanho; i++) {
                 System.out.printf("%2d |", i); // Numeração das linhas
-                for (int j = 0; j < TAMANHO; j++) {
+                for (int j = 0; j < tamanho; j++) {
                     System.out.print(tabuleiro[i][j] + "  ");
                 }
                 System.out.println();
@@ -103,37 +102,33 @@ public class Tabuleiro {
             System.out.println("-----------------\n");
         }
 
-        //
-        public int calcularDistancia() { //Verificar esse calculo
+
+        public int calcularDistancia() {
             int distLinha = Math.abs(player1.getLinha() - player2.getLinha());
             int distColuna = Math.abs(player1.getCol() - player2.getCol());
             return distLinha + distColuna;
         }
 
-        //Metodo para mover o personagem
-        public void moverPersonagem(Personagem playerAcao, int novaLinha, int novaColuna) {
+
+        private void moverPersonagem(Personagem playerAcao, int novaLinha, int novaColuna) {
 
             if (!verificaPosicao(novaLinha, novaColuna)) {
                 System.out.println("Movimento inválido para " + playerAcao.getNome() + ": Posição (" + novaLinha + "," + novaColuna + ") fora dos limites do tabuleiro.");
                 return;
             }
-            // Validação se a nova posição está logicamente ocupada por OUTRO personagem
-            if(verificaVazia(novaLinha, novaColuna)){ // se estiver cheia retornara false, logo sera true
+            if(verificaVazia(novaLinha, novaColuna)){
                 if(playerAcao.getLinha() == novaLinha && playerAcao.getCol() == novaColuna){
-                    System.out.println("Movimento inválido para " + playerAcao.getNome() + ": Posição (" + novaLinha + "," + novaColuna + ") voce oucupa essa posição.");
+                    System.out.println("Movimento inválido para " + playerAcao.getNome() + ": Posição (" + novaLinha + "," + novaColuna + ") voce já estar nessa posição.");
                     return;
                 }
                 System.out.println("Movimento inválido para " + playerAcao.getNome() + ": Posição (" + novaLinha + "," + novaColuna + ") já estar ocupado.");
                 return;
             }
-            // Se o movimento é válido logicamente:
             int linhaAntiga = playerAcao.getLinha();
             int colunaAntiga = playerAcao.getCol();
             playerAcao.setPosition(novaLinha, novaColuna);
-
-            // Libera a posição antiga e marca a nova
-            liberaPosicao(linhaAntiga, colunaAntiga); // Libera a posição antiga
-            posicionarTabuleiro(novaLinha, novaColuna, playerAcao); // Marca a nova posição
+            liberaPosicao(linhaAntiga, colunaAntiga);
+            posicionarTabuleiro(novaLinha, novaColuna, playerAcao);
             System.out.println(playerAcao.getNome() + " moveu de (" + linhaAntiga + "," + colunaAntiga + ") para (" + novaLinha + "," + novaColuna + ").");
         }
     }

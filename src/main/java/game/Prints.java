@@ -49,6 +49,7 @@ public class Prints {
     }
 
     public String escolherNome(){
+        teclado.nextLine();
         System.out.println("\nEscolha qual será o nome do seu personagem: ");
         return teclado.nextLine();
     }

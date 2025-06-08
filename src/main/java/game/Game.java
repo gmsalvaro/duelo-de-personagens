@@ -9,7 +9,6 @@ public class Game {
     private Tabuleiro tabuleiro;
     private Personagem player1;
     private Personagem player2;
-    private Personagem playerIA;
     private Random numAleatorio = new Random();
 
 
@@ -88,23 +87,23 @@ public class Game {
         }
     }
 
-    public void mover(Personagem player1) {
+    public void mover(Personagem player) {
         Prints prints = new Prints();
         int escolha = prints.escolherPosicao();
-        int linha = player1.getLinha();
-        int coluna = player1.getCol();
+        int linha = player.getLinha();
+        int coluna = player.getCol();
         switch (escolha) {
             case 1: // Cima
-                tabuleiro.moverPersonagem(player1, linha - 1, coluna);
+                tabuleiro.moverPersonagem(player, linha - 1, coluna);
                 break;
             case 2://Baixo
-                tabuleiro.moverPersonagem(player1, linha + 1, coluna);
+                tabuleiro.moverPersonagem(player, linha + 1, coluna);
                 break;
             case 3:// Esquerda
-                tabuleiro.moverPersonagem(player1, linha, coluna + 1);
+                tabuleiro.moverPersonagem(player, linha, coluna + 1);
                 break;
             case 4:// Direita
-                tabuleiro.moverPersonagem(player1, linha, coluna - 1);
+                tabuleiro.moverPersonagem(player, linha, coluna - 1);
                 break;
         }
         tabuleiro.exibirTabuleiro();
@@ -114,22 +113,21 @@ public class Game {
         Prints prints = new Prints();
         System.out.println("Escolha Player1: ");
         player1 = escolhaPersonagem();
-        playerIA = escolherPersonagemIA();
+        player2 = escolherPersonagemIA();
         System.out.println("Iniciando Duelo de Personagens!");
         System.out.println("---------------------------------");
-        this.tabuleiro = new Tabuleiro(player1, playerIA);
+        this.tabuleiro = new Tabuleiro(player1, player2);
 
-        while (player1.estaVivo() && playerIA.estaVivo()) {
-            prints.imprimirStatus(player1, playerIA);
+        while (player1.estaVivo() && player2.estaVivo()) {
+            prints.imprimirStatus(player1, player2);
             tabuleiro.exibirTabuleiro();
             //Player 1
-            gameAcao(player1, playerIA);
+            gameAcao(player1, player2);
             //Player IA
-            gameAcaoIA(playerIA, player1);
+            gameAcaoIA(player2, player1);
         }
-        prints.mensagemFinal(player1, playerIA);
+        prints.mensagemFinal(player1, player2);
     }
-
 
     public Personagem escolherPersonagemIA() {
         int escolha = numAleatorio.nextInt(1, 4); // vai gerar um valor de 0 a 2
@@ -138,12 +136,16 @@ public class Game {
         switch(escolha) {
             case 1:
                 player = new Arqueiro("Legolas");
+                System.out.println("IA escolheu Arqueiro! ");
+
                 break;
             case 2:
                 player = new Guerreiro("Garrosh");
+                System.out.println("IA escolheu Guerreiro!");
                 break;
             case 3:
                 player = new Mago("Ryze");
+                System.out.println("IA escolheu Mago!");
                 break;
         }
         return player;
