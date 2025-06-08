@@ -30,11 +30,9 @@ public class Game {
         player1 = escolhaPersonagem();
         System.out.println("Escolha Player2: "); // Melhorar
         player2 = escolhaPersonagem();
-        this.tabuleiro = new Tabuleiro(player1, player2);
         System.out.println("Iniciando Duelo de Personagens!");
         System.out.println("---------------------------------");
-        tabuleiro.definirPosicoesIniciaisAleatorias();
-
+        this.tabuleiro = new Tabuleiro(player1, player2);
         while(player1.estaVivo() && player2.estaVivo()) { //Enquanto estiverem vivos vai rodar;
             prints.imprimirStatus(player1,player2);
             tabuleiro.exibirTabuleiro();
@@ -99,7 +97,6 @@ public class Game {
                 break;
             case 2://Baixo
                 tabuleiro.moverPersonagem(player1, linha + 1, coluna);
-
                 break;
             case 3:// Esquerda
                 tabuleiro.moverPersonagem(player1, linha, coluna + 1);

@@ -2,14 +2,12 @@ package Personagem;
 import game.Tabuleiro;
 
 public class Personagem { // Classe Mãe
-    protected String type;
     protected String nome;
     protected int pontosDeVida; //PVD
     protected int forcaDeAtaque;
     protected int forcaDeDefesa;
-    protected int baseDefesa; // Base para calculo;
+    protected int baseDefesa;
     protected int alcanceDeAtaque;
-    //Posição
     protected int linha;
     protected int coluna;
 
@@ -22,7 +20,6 @@ public class Personagem { // Classe Mãe
         this.pontosDeVida = 100;
         this.linha = -1;
         this.coluna = -1;
-
     }
 
     //Getters
@@ -75,7 +72,6 @@ public class Personagem { // Classe Mãe
 
 
     public void receberDano(int dano) {
-        //Não levei em consideração a defesa ainda !!!!
         this.pontosDeVida -= dano;
         if (this.pontosDeVida < 0)
             this.pontosDeVida = 0;
@@ -90,9 +86,6 @@ public class Personagem { // Classe Mãe
         // O dano é força de ataque do atacante - força de defesa do alvo
         return Math.max(0, this.forcaDeAtaque - alvo.getForcaDeDefesa());
     }
-//    public void defender(Personagem atacante){
-//         setForcaDeDefesa(Math.max(0, getForcaDeDefesa() - atacante.getForcaDeAtaque()));
-//    }
 
     public void atacar(Personagem alvo) {
         if(calcularDistancia(alvo) > getAlcanceDeAtaque()) {
@@ -107,7 +100,6 @@ public class Personagem { // Classe Mãe
         System.out.println(getNome() + " ataca " + alvo.getNome() + "!");
         alvo.receberDano(danoCausado);
         System.out.println(alvo.getNome() + " sofreu " + danoCausado + " de dano. PV restantes: " + alvo.getPontosDeVida());
-
         // Regra: Após o ataque, qualquer efeito de defesa temporária no alvo é removido, ou seja, defesa volta ao inicial.
         alvo.setForcaDeDefesa(alvo.baseDefesa);
     }
@@ -118,12 +110,9 @@ public class Personagem { // Classe Mãe
         return distLinha + distColuna;
     }
 
-    public void usarPoderEspecial(Personagem alvo) {
-    }
+    public void usarPoderEspecial(Personagem alvo) {}
 
     public boolean estaVivo() {
-        if(getPontosDeVida() > 0)
-            return true;
-        return false;
+        return getPontosDeVida() > 0;
     }
 }
