@@ -6,6 +6,9 @@ public class Mago extends Personagem {
         super(nome, 10, 7, 3);
     }
     public void usarPoderEspecial(Personagem alvo) {
+
+        //Controle de uso
+
         System.out.println(getNome() + " ativa Troca de Vida!");
         int aux = getPontosDeVida();
         setPontosDeVida(alvo.getPontosDeVida());

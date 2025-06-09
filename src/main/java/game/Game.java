@@ -53,6 +53,10 @@ public class Game {
         if(escolha == 1){
             new Game();
         }
+        else
+        {
+            System.out.print("Obrigado por Jogar! ");
+        }
     }
 
 
