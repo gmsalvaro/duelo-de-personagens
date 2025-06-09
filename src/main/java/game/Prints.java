@@ -110,10 +110,10 @@ public class Prints {
     public int escolherPosicao(){
         int escolha = -1;
         boolean entradaValida = false;
-        System.out.println("1. C");
-        System.out.println("2. B");
-        System.out.println("3. E");
-        System.out.println("4. D");
+        System.out.println("1. Cima");
+        System.out.println("2. Baixo");
+        System.out.println("3. Esquerda");
+        System.out.println("4. Direita");
         while (!entradaValida) {
             escolha = teclado.nextInt();
             if (escolha == 1 || escolha == 2 || escolha == 3 || escolha == 4) {
