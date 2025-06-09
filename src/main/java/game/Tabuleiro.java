@@ -45,7 +45,7 @@ public class Tabuleiro {
         }
 
         private void liberaPosicao(int linha, int coluna) {
-                tabuleiro[linha][coluna] = "."; // Preencher o tabuleiro com ponto na posição (provavelmente pós se mover);
+                tabuleiro[linha][coluna] = ".";
         }
 
         private void inicializaTabuleiro() {
