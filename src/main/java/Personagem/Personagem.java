@@ -2,20 +2,21 @@ package Personagem;
 import game.Tabuleiro;
 
 public class Personagem { // Classe Mãe
-    protected String nome;
-    protected int pontosDeVida; //PVD
-    protected int forcaDeAtaque;
-    protected int forcaDeDefesa;
-    protected int baseDefesa;
-    protected int alcanceDeAtaque;
-    protected int linha;
-    protected int coluna;
+    private String nome;
+    private int pontosDeVida; //PVD
+    private int forcaDeAtaque;
+    private int forcaDeDefesa;
+    private int baseDefesa;
+    private int alcanceDeAtaque;
+    private int linha;
+    private int coluna;
 
-    //Contrutor
+
      Personagem(String nome, int forcaDeAtaque, int forcaDeDefesa, int alcanceDeAtaque) {
         this.nome = nome;
         this.forcaDeAtaque = forcaDeAtaque;
-        baseDefesa = this.forcaDeDefesa = forcaDeDefesa;
+        baseDefesa = forcaDeDefesa;
+        this.forcaDeDefesa = forcaDeDefesa;
         this.alcanceDeAtaque = alcanceDeAtaque;
         this.pontosDeVida = 100;
         this.linha = -1;
@@ -91,7 +92,7 @@ public class Personagem { // Classe Mãe
 
     public void atacar(Personagem alvo) {
         if(calcularDistancia(alvo) > getAlcanceDeAtaque()) {
-            System.out.println("Erro: Alcance invalido/n");
+            System.out.println("Erro: Alcance invalido");
             return;
         }
         int danoCausado = calcularDano(alvo);
@@ -109,12 +110,12 @@ public class Personagem { // Classe Mãe
     public int calcularDistancia( Personagem p2){
         int distLinha = Math.abs(getLinha() - p2.getLinha());
         int distColuna = Math.abs(getCol() - p2.getCol());
-        return distLinha + distColuna;
+        return Math.max(distLinha, distColuna);
     }
 
     public void usarPoderEspecial(Personagem alvo) {}
 
     public boolean estaVivo() {
-        return getPontosDeVida() > 0;
+         return getPontosDeVida() > 0;
     }
 }
