@@ -27,12 +27,11 @@ public class Game {
         }
     }
 
+
     public void gamePlayerXPlayer() {
         //Escolha de Personagens
         Prints prints = new Prints();
-        System.out.println("Escolha Player1: "); //Melhorar
         player1 = escolhaPersonagem();
-        System.out.println("Escolha Player2: "); // Melhorar
         player2 = escolhaPersonagem();
         System.out.println("Iniciando Duelo de Personagens!");
         System.out.println("---------------------------------");
@@ -45,15 +44,25 @@ public class Game {
             //Player 2
             gameAcao(player2, player1);
         }
-        prints.mensagemFinal(player1, player2);
+        finalGame(player1, player2);
     }
+
+    public void finalGame(Personagem player1, Personagem player2) {
+        Prints prints = new Prints();
+        int escolha = prints.mensagemFinal(player1, player2);
+        if(escolha == 1){
+            new Game();
+        }
+    }
+
 
     public Personagem escolhaPersonagem() {
         Prints prints = new Prints();
         Personagem player = null;
         String nome = prints.escolherNome();
+        System.out.println("Escolha qual será o seu Perosnagem " + nome + " : ");
         int escolhas = prints.escolherPersonagem();
-        switch (escolhas) {   //escolha de personagens para o jogo
+        switch(escolhas) {   //escolha de personagens para o jogo
             case 1:
                 player = new Arqueiro(nome);
                 break;
@@ -94,16 +103,16 @@ public class Game {
         int coluna = player.getCol();
         switch (escolha) {
             case 1: // Cima
-                tabuleiro.moverPersonagem(player, linha - 1, coluna);
+                tabuleiro.tentarMover(player, linha - 1, coluna);
                 break;
             case 2://Baixo
-                tabuleiro.moverPersonagem(player, linha + 1, coluna);
+                tabuleiro.tentarMover(player, linha + 1, coluna);
                 break;
             case 3:// Esquerda
-                tabuleiro.moverPersonagem(player, linha, coluna + 1);
+                tabuleiro.tentarMover(player, linha, coluna + 1);
                 break;
             case 4:// Direita
-                tabuleiro.moverPersonagem(player, linha, coluna - 1);
+                tabuleiro.tentarMover(player, linha, coluna - 1);
                 break;
         }
         tabuleiro.exibirTabuleiro();
@@ -116,8 +125,7 @@ public class Game {
         player2 = escolherPersonagemIA();
         System.out.println("Iniciando Duelo de Personagens!");
         System.out.println("---------------------------------");
-        this.tabuleiro = new Tabuleiro(player1, player2);
-
+        tabuleiro = new Tabuleiro(player1, player2);
         while (player1.estaVivo() && player2.estaVivo()) {
             prints.imprimirStatus(player1, player2);
             tabuleiro.exibirTabuleiro();
@@ -175,21 +183,20 @@ public class Game {
         int colunaIA = playerIA.getCol();
         int linhaPlayer = player.getLinha();
         int colunaPlayer = player.getCol();
-
         int moverLinha = Math.abs(linhaIA - linhaPlayer);
         int moverColuna = Math.abs(colunaIA - colunaPlayer);
 
         if (moverColuna > moverLinha) {
             if (colunaIA > colunaPlayer)
-                tabuleiro.moverPersonagem(playerIA, linhaIA, colunaIA - 1); // Esquerda
+                tabuleiro.tentarMover(playerIA, linhaIA, colunaIA - 1); // Esquerda
             else
-                tabuleiro.moverPersonagem(playerIA, linhaIA, colunaIA + 1); // Direita
+                tabuleiro.tentarMover(playerIA, linhaIA, colunaIA + 1); // Direita
         }
         else {
             if (linhaIA > linhaPlayer)
-                tabuleiro.moverPersonagem(playerIA, linhaIA - 1, colunaIA); // Cima
+                tabuleiro.tentarMover(playerIA, linhaIA - 1, colunaIA); // Cima
             else
-                tabuleiro.moverPersonagem(playerIA, linhaIA + 1, colunaIA); // Baixo
+                tabuleiro.tentarMover(playerIA, linhaIA + 1, colunaIA); // Baixo
         }
 
     }

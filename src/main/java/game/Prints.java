@@ -13,6 +13,8 @@ public class Prints {
         System.out.println("       Prepare-se para a batalha!");
         System.out.println("---------------------------------");
     }
+
+
     public int escolherModoDeJogo() {
         int escolha = -1;
         boolean entradaValida = false;
@@ -30,14 +32,39 @@ public class Prints {
         }
         return escolha;
     }
+    public void printDescricaoArqueiro() {
+        System.out.println("Especialista em ataques de longa distância.");
+        System.out.println("Poder Especial: FLECHA PRECISA");
+        System.out.println("  - Aumenta permanentemente seu alcance em +1.");
+        System.out.println("Atributos: Ataque 8 | Defesa 5 | Alcance 5");
+    }
+    public void printDescricaoGuerreiro() {
+        System.out.println("Combatente corpo a corpo com alta resistência.");
+        System.out.println("Poder Especial: CARGA BRUTAL");
+        System.out.println("  - Dobra seu dano de ataque temporariamente.");
+        System.out.println("Atributos: Ataque 15 | Defesa 10 | Alcance 1");
+    }
+    public void printDescricaoMago() {
+        System.out.println("Mestre de magias que manipulam a vida.");
+        System.out.println("Poder Especial: TROCA DE VIDA");
+        System.out.println("  - Troca seus PV com os do inimigo.");
+        System.out.println("Atributos: Ataque 10 | Defesa 7 | Alcance 3");
+    }
+
 
     public int escolherPersonagem(){
         int escolha = -1;
         boolean entradaValida = false;
-        System.out.println("1. Arqueiro"); // Acho importante colocar uma breve descrição;
+        System.out.println();
+        System.out.println("1. Arqueiro");
+        printDescricaoArqueiro();
+        System.out.println();
         System.out.println("2. Guerreiro");
+        printDescricaoGuerreiro();
+        System.out.println();
         System.out.println("3. Mago");
-        while (!entradaValida) { // Sai do loop quando é falso, logo entrada é true
+        printDescricaoMago();
+        while (!entradaValida) {
             escolha = teclado.nextInt();
             if (escolha == 1 || escolha == 2 || escolha == 3) {
                 entradaValida = true;
@@ -49,7 +76,6 @@ public class Prints {
     }
 
     public String escolherNome(){
-        teclado.nextLine();
         System.out.println("\nEscolha qual será o nome do seu personagem: ");
         return teclado.nextLine();
     }
@@ -100,21 +126,25 @@ public class Prints {
     }
 
 
-
-
-
-
-
-
-        public void mensagemFinal(Personagem player1, Personagem player2){
-        if(player1.estaVivo()){
+    public int mensagemFinal(Personagem player1, Personagem player2) {
+        int escolha = -1;
+        boolean entradaValida = false;
+        if (player1.estaVivo()) {
             System.out.println("Parabens ao " + player1.getNome());
         } else {
-            System.out.println("Parabens ao " + player1.getNome());
+            System.out.println("Parabens ao " + player2.getNome());
         }
-    //fazer com que o jogo retorne novamente;
+        System.out.println("Jogar Novamente?");
+        System.out.println("1 - SIM");
+        System.out.println("2 - NÃO");
+        while (!entradaValida) {
+            escolha = teclado.nextInt();
+            if (escolha == 1 || escolha == 2) {
+                entradaValida = true;
+            } else {
+                System.out.println("Opção inválida. Por favor, digite 1 ou 2.");
+            }
+        }
+        return escolha;
     }
-
-
-
-}
+    }
