@@ -26,7 +26,7 @@ public class Game {
         }
     }
 
-    public void gamePlayerXPlayer() {
+    private void gamePlayerXPlayer() {
         player1 = personagemPlayer();
         player2 = personagemPlayer();
         System.out.println("Iniciando Duelo de Personagens!");
@@ -109,7 +109,7 @@ public class Game {
         tabuleiro.exibirTabuleiro();
     }
 
-    public void gameIA() {
+    private void gameIA() {
         System.out.println("Escolha Player1: ");
         player1 = personagemPlayer();
         player2 = personagemIA();
@@ -151,20 +151,21 @@ public class Game {
 
     private void executarTurnoIA(Personagem playerIA, Personagem player) {
         int distancia = tabuleiro.calcularDistancia();
+
         if (distancia > playerIA.getAlcanceDeAtaque()) {
+            System.out.println("IA está se aproximando para o ataque.");
             moverIA(playerIA, player);
             return;
         }
-        if (distancia <= playerIA.getAlcanceDeAtaque()) {
-            if (playerIA.getPontosDeVida() >= 50) {
-                playerIA.atacar(player);
-            }
-            else if (playerIA.getPontosDeVida() <= 25) {
-                //playerIA.restaurarDefesa();
-                playerIA.atacar(player);
-            }
-            else {
+        if (playerIA.getPontosDeVida() <= 25 && player.getPontosDeVida() > 30) {
+            playerIA.usarPoderEspecial(player);
+        } else if (playerIA.getPontosDeVida() >= 50) {
+            playerIA.atacar(player);
+        } else {
+            if (player.getPontosDeVida() <= 30) {
                 playerIA.usarPoderEspecial(player);
+            } else {
+                playerIA.atacar(player);
             }
         }
     }

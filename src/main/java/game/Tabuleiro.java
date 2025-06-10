@@ -1,7 +1,5 @@
 package game;
-
 import Personagem.Personagem;
-
 import java.util.Random;
 
 
@@ -80,7 +78,7 @@ public class Tabuleiro {
             System.out.println("   " + "---".repeat(tamanho));
 
             for (int i = 0; i < tamanho; i++) {
-                System.out.printf("%2d |", i);
+                System.out.printf("%1d |", i);
                 for (int j = 0; j < tamanho; j++) {
                     System.out.print(tabuleiro[i][j] + "  ");
                 }

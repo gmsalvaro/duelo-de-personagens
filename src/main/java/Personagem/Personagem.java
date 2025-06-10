@@ -28,35 +28,36 @@ public class Personagem { // Classe Mãe
     }
 
     public int getPontosDeVida() {
-        return pontosDeVida;
+         return pontosDeVida;
     }
 
     public int getForcaDeAtaque() {
-        return forcaDeAtaque;
+         return forcaDeAtaque;
     }
 
     public int getForcaDeDefesa() {
-        return forcaDeDefesa;
+         return forcaDeDefesa;
     }
 
     public int getAlcanceDeAtaque() {
-        return alcanceDeAtaque;
+         return alcanceDeAtaque;
     }
 
     public int getLinha() {
-        return linha;
+         return linha;
     }
 
     public int getCol() {
-        return coluna;
+         return coluna;
     }
 
 
     public void setPontosDeVida(int pontosDeVida) {
-        this.pontosDeVida = pontosDeVida;
+         this.pontosDeVida = pontosDeVida;
     }
 
-    public void setForcaDeAtaque(int forcaDeAtaque){ this.forcaDeAtaque = forcaDeAtaque; }
+    public void setForcaDeAtaque(int forcaDeAtaque){
+         this.forcaDeAtaque = forcaDeAtaque; }
 
     public void setForcaDeDefesa(int forcaDeDefesa) {
         this.forcaDeDefesa = forcaDeDefesa;
@@ -110,9 +111,9 @@ public class Personagem { // Classe Mãe
         System.out.println("Defesa restante: " + alvo.getForcaDeDefesa());
     }
 
-    public int calcularDistancia( Personagem p2){
-        int distLinha = Math.abs(getLinha() - p2.getLinha());
-        int distColuna = Math.abs(getCol() - p2.getCol());
+    public int calcularDistancia( Personagem player2){
+        int distLinha = Math.abs(getLinha() - player2.getLinha());
+        int distColuna = Math.abs(getCol() - player2.getCol());
         return Math.max(distLinha, distColuna);
     }
 
