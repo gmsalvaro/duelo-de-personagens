@@ -10,6 +10,8 @@ public class Personagem { // Classe Mãe
     private int alcanceDeAtaque;
     private int linha;
     private int coluna;
+    private int limitesPoderMax = 1;
+    private int defesaMax = 4;
 
      Personagem(String nome, int forcaDeAtaque, int forcaDeDefesa, int alcanceDeAtaque) {
         this.nome = nome;
@@ -51,6 +53,14 @@ public class Personagem { // Classe Mãe
          return coluna;
     }
 
+    public int getLimitesPoderMax() {
+        return limitesPoderMax;
+    }
+
+    public int getDefesaMax() {
+        return defesaMax;
+    }
+
 
     public void setPontosDeVida(int pontosDeVida) {
          this.pontosDeVida = pontosDeVida;
@@ -65,6 +75,14 @@ public class Personagem { // Classe Mãe
 
     public void setAlcanceDeAtaque(int alcanceDeAtaque) {
         this.alcanceDeAtaque = alcanceDeAtaque;
+    }
+
+    public void setLimitesPoderMax(int limitesPoderMax) {
+        this.limitesPoderMax = limitesPoderMax;
+    }
+
+    public void setDefesaMax(int defesaMax) {
+        this.defesaMax = defesaMax;
     }
 
     public void setPosition(int linha, int coluna) {

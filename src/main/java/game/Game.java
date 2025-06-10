@@ -14,7 +14,8 @@ public class Game {
 
 
 
-    public Game() {}
+    public Game() {
+    }
 
     public void start() {
         prints.exibirMensagemInicial();
@@ -36,9 +37,13 @@ public class Game {
             prints.imprimirStatus(player1, player2);
             tabuleiro.exibirTabuleiro();
             //Player 1
-            executarTurnoPVP(player1, player2);
+            if(player1.estaVivo()) {
+                executarTurnoPVP(player1, player2);
+            }
             //Player 2
-            executarTurnoPVP(player2, player1);
+            if(player2.estaVivo()) {
+                executarTurnoPVP(player2, player1);
+            }
         }
         encerrarJogo(player1,player2);
     }
@@ -47,10 +52,10 @@ public class Game {
         String escolha = prints.mensagemFinal(player1, player2);
         if(Objects.equals(escolha, "S")){
             new Game();
+            start();
         }
         else
         {
-            System.out.print("Obrigado por Jogar! ");
           prints.agradecimentoFinal();
         }
     }
@@ -76,18 +81,35 @@ public class Game {
 
     private void executarTurnoPVP(Personagem atacante, Personagem defensor) {
         int escolhas = prints.escolherAcao();
+
         switch (escolhas) {
             case 1:
                 atacante.atacar(defensor);
                 break;
             case 2://Defender
-                atacante.restaurarDefesa();
-                break;
+                if(atacante.getDefesaMax() > 0) {
+                    atacante.restaurarDefesa();
+                    atacante.setDefesaMax(atacante.getDefesaMax() - 1);
+                    System.out.println("Quantidade de usos Restantes: " + atacante.getDefesaMax());
+                }
+                else{
+                    System.out.println("Você usou seu limite de Resturar defesas!");
+                    executarTurnoPVP(atacante, defensor);
+                }
+                    break;
             case 3:// Mover
                 moverPVP(atacante);
                 break;
             case 4:// ataque especial
-                atacante.usarPoderEspecial(defensor);
+                if(atacante.getLimitesPoderMax() > 0) {
+                    atacante.usarPoderEspecial(defensor);
+                    atacante.setLimitesPoderMax(atacante.getLimitesPoderMax() - 1);
+                    System.out.println("Quantidade de usos Restantes: " + atacante.getLimitesPoderMax());
+                }
+                else{
+                    System.out.println("Você usou seu limite de poder maximos!");
+                    executarTurnoPVP(atacante, defensor);
+                }
                 break;
         }
     }
@@ -105,10 +127,10 @@ public class Game {
                 break;
 
             case "E":
-                tabuleiro.tentarExecutarMovimento(player, linha, coluna + 1);
+                tabuleiro.tentarExecutarMovimento(player, linha, coluna - 1);
                 break;
             case "D":
-                tabuleiro.tentarExecutarMovimento(player, linha, coluna - 1);
+                tabuleiro.tentarExecutarMovimento(player, linha, coluna + 1);
 
                 break;
         }
@@ -126,9 +148,13 @@ public class Game {
             prints.imprimirStatus(player1, player2);
             tabuleiro.exibirTabuleiro();
             //Player 1
-            executarTurnoPVP(player1, player2);
+            if(player1.estaVivo()) {
+                executarTurnoPVP(player1, player2);
+            }
             //Player IA
-            executarTurnoIA(player2, player1);
+            if(player2.estaVivo()) {
+                executarTurnoIA(player2, player1);
+            }
         }
         encerrarJogo(player1, player2);
 
@@ -165,13 +191,25 @@ public class Game {
             return;
         }
         if (playerIA.getPontosDeVida() <= 25 && player.getPontosDeVida() > 30) {
-            playerIA.usarPoderEspecial(player);
-        } else if (playerIA.getPontosDeVida() >= 50) {
+            if(playerIA.getDefesaMax() > 0){
+            playerIA.restaurarDefesa();
+            playerIA.setDefesaMax(playerIA.getDefesaMax() - 1);
+            }
+            else{
+                playerIA.atacar(player);
+            }
+        } else if (playerIA.getPontosDeVida() >= 50 || playerIA.getPontosDeVida() <= 10) {
             playerIA.atacar(player);
         } else {
             if (player.getPontosDeVida() <= 30) {
+                if(playerIA.getLimitesPoderMax() > 0){
                 playerIA.usarPoderEspecial(player);
-            } else {
+                playerIA.setLimitesPoderMax(playerIA.getLimitesPoderMax() - 1);
+                }
+                else{playerIA.atacar(player);
+                }
+            }
+            else {
                 playerIA.atacar(player);
             }
 
