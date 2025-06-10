@@ -56,8 +56,6 @@ public class Tabuleiro {
             }
         }
 
-        //Verificar se a posição estar Ocupada;
-
         private boolean verificaVazia(int linha, int coluna) {
             if (verificaLimites(linha, coluna)) {
                 return true;
@@ -92,7 +90,7 @@ public class Tabuleiro {
         }
 
 
-        public void tentarMover(Personagem playerAcao, int novaLinha, int novaColuna){
+        public void tentarExecutarMovimento(Personagem playerAcao, int novaLinha, int novaColuna){
             if (verificaLimites(novaLinha, novaColuna)) {
                 System.out.println("Movimento inválido para " + playerAcao.getNome() + ": Posição (" + novaLinha + "," + novaColuna + ") fora dos limites do tabuleiro.");
                 return;

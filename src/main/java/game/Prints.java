@@ -6,7 +6,6 @@ import java.util.Scanner;
 public class Prints {
     private Scanner teclado = new Scanner(System.in);
 
-    //Função Inicial
     public void exibirMensagemInicial() {
         System.out.println("---------------------------------");
         System.out.println(" Bem-vindo ao Duelo de Personagens!");
@@ -19,20 +18,20 @@ public class Prints {
         System.out.println("1. Jogador vs Jogador");
         System.out.println("2. Jogador vs IA");
         System.out.print("Qual sua escolha: ");
-        return lerOpcaoValida(new int[]{1, 2});
+        return lerOpcaoValidaInt(new int[]{1, 2});
     }
 
-    public void printDescricaoArqueiro() {
+    public void imprimirDescricaoArqueiro() {
         System.out.println("Poder Especial: FLECHA PRECISA");
         System.out.println("Aumenta permanentemente seu alcance em +1.");
         System.out.println("Atributos: Ataque 8 | Defesa 5 | Alcance 5");
     }
-    public void printDescricaoGuerreiro() {
+    public void imprimirDescricaoGuerreiro() {
         System.out.println("Poder Especial: CARGA BRUTAL");
         System.out.println(" Dobra seu dano de ataque.");
         System.out.println("Atributos: Ataque 15 | Defesa 10 | Alcance 1");
     }
-    public void printDescricaoMago() {
+    public void imprimirDescricaoMago() {
         System.out.println("Poder Especial: TROCA DE VIDA");
         System.out.println("Troca seus PV com os do inimigo.");
         System.out.println("Atributos: Ataque 10 | Defesa 7 | Alcance 3");
@@ -42,14 +41,14 @@ public class Prints {
     public int escolherPersonagem(){
         System.out.println();
         System.out.println("1. Arqueiro");
-        printDescricaoArqueiro();
+        imprimirDescricaoArqueiro();
         System.out.println();
         System.out.println("2. Guerreiro");
-        printDescricaoGuerreiro();
+        imprimirDescricaoGuerreiro();
         System.out.println();
         System.out.println("3. Mago");
-        printDescricaoMago();
-        return lerOpcaoValida(new int[]{1, 2, 3});
+        imprimirDescricaoMago();
+        return lerOpcaoValidaInt(new int[]{1, 2, 3});
     }
 
     public String escolherNome(){
@@ -59,9 +58,9 @@ public class Prints {
 
     public void imprimirStatus( Personagem player1, Personagem player2){ //Melhorar depois
         System.out.println("---------------------------------");
-        System.out.printf("%-15s %-15s\n", player1.getNome(), player2.getNome());
+        System.out.printf("%-15s vs %-15s\n", player1.getNome(), player2.getNome());
         System.out.printf("PV: %-13d PV: %-13d\n", player1.getPontosDeVida(), player2.getPontosDeVida());
-        System.out.printf("DEF: %-12d DEF: %-12d\n", player1.getForcaDeDefesa(), player2.getForcaDeDefesa());
+        System.out.printf("DEF: %-13d DEF: %-13d\n", player1.getForcaDeDefesa(), player2.getForcaDeDefesa());
         System.out.println("---------------------------------");
     }
 
@@ -70,7 +69,7 @@ public class Prints {
         System.out.println("2. Defender");
         System.out.println("3. Mover");
         System.out.println("4. Ataque especial");
-        return lerOpcaoValida(new int[]{1, 2, 3, 4});
+        return lerOpcaoValidaInt(new int[]{1, 2, 3, 4});
     }
 
     public String escolherPosicao(){
@@ -97,14 +96,14 @@ public class Prints {
         return lerLetraValidaString(new String[]{"S", "N"});
     }
 
-    public void agradecimento(){
+    public void agradecimentoFinal(){
         System.out.println("=================================");
         System.out.println(" Obrigado por jogar Duelo de Personagens!");
         System.out.println("=================================");
     }
 
 
-    public int lerOpcaoValida(int[] opcoesValidas) {
+    public int lerOpcaoValidaInt(int[] opcoesValidas) {
         while (true) {
             String entrada = teclado.nextLine().trim();
             try {

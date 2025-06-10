@@ -4,35 +4,31 @@ import Personagem.*;
 
 import java.util.Objects;
 import java.util.Random;
-import java.util.Scanner;
 
 public class Game {
     private Tabuleiro tabuleiro;
     private Personagem player1;
     private Personagem player2;
     private Random numAleatorio = new Random();
+    private Prints prints = new Prints();
 
 
-    public Game() {
-        Prints prints = new Prints();
-        int escolhas;
+
+    public Game() {}
+
+    public void start() {
         prints.exibirMensagemInicial();
-        escolhas = prints.escolherModoDeJogo();
-        switch (escolhas) {
-            case 1: // 1 vs 1
-                gamePlayerXPlayer();
-                break;
-            case 2: // vs IA
-                gamePlayerXIA();
-                break;
+        int escolha = prints.escolherModoDeJogo();
+        if (escolha == 1) {
+            gamePlayerXPlayer();
+        } else {
+            gameIA();
         }
     }
 
     public void gamePlayerXPlayer() {
-        //Escolha de Personagens
-        Prints prints = new Prints();
-        player1 = escolhaPersonagem();
-        player2 = escolhaPersonagem();
+        player1 = personagemPlayer();
+        player2 = personagemPlayer();
         System.out.println("Iniciando Duelo de Personagens!");
         System.out.println("---------------------------------");
         this.tabuleiro = new Tabuleiro(player1, player2);
@@ -40,23 +36,22 @@ public class Game {
             prints.imprimirStatus(player1, player2);
             tabuleiro.exibirTabuleiro();
             //Player 1
-            gameAcao(player1, player2);
+            executarTurnoPVP(player1, player2);
             //Player 2
-            gameAcao(player2, player1);
+            executarTurnoPVP(player2, player1);
         }
+        encerrarJogo(player1,player2);
     }
 
-    public void finalGame(Personagem player1, Personagem player2) {
-        Prints prints = new Prints();
+    private void encerrarJogo(Personagem player1, Personagem player2) {
         String escolha = prints.mensagemFinal(player1, player2);
         if(Objects.equals(escolha, "S")){
             new Game();
         }
-        prints.agradecimento();
+        prints.agradecimentoFinal();
     }
 
-    public Personagem escolhaPersonagem() {
-        Prints prints = new Prints();
+    private Personagem personagemPlayer() {
         Personagem player = null;
         String nome = prints.escolherNome();
         System.out.println("Escolha qual será o seu Perosnagem " + nome + " : ");
@@ -75,8 +70,7 @@ public class Game {
         return player;
     }
 
-    public void gameAcao(Personagem atacante, Personagem defensor) {
-        Prints prints = new Prints();
+    private void executarTurnoPVP(Personagem atacante, Personagem defensor) {
         int escolhas = prints.escolherAcao();
         switch (escolhas) {
             case 1:
@@ -86,7 +80,7 @@ public class Game {
                 atacante.restaurarDefesa();
                 break;
             case 3:// Mover
-                mover(atacante);
+                moverPVP(atacante);
                 break;
             case 4:// ataque especial
                 atacante.usarPoderEspecial(defensor);
@@ -94,33 +88,31 @@ public class Game {
         }
     }
 
-    public void mover(Personagem player) {
-        Prints prints = new Prints();
+    private void moverPVP(Personagem player) {
         String escolha = prints.escolherPosicao();
         int linha = player.getLinha();
         int coluna = player.getCol();
         switch (escolha) {
-            case "C": // Cima
-                tabuleiro.tentarMover(player, linha - 1, coluna);
+            case "C":
+                tabuleiro.tentarExecutarMovimento(player, linha - 1, coluna);
                 break;
-            case "B"://Baixo
-                tabuleiro.tentarMover(player, linha + 1, coluna);
+            case "B":
+                tabuleiro.tentarExecutarMovimento(player, linha + 1, coluna);
                 break;
-            case "E":// Esquerda
-                tabuleiro.tentarMover(player, linha, coluna + 1);
+            case "E":
+                tabuleiro.tentarExecutarMovimento(player, linha, coluna + 1);
                 break;
-            case "D":// Direita
-                tabuleiro.tentarMover(player, linha, coluna - 1);
+            case "D":
+                tabuleiro.tentarExecutarMovimento(player, linha, coluna - 1);
                 break;
         }
         tabuleiro.exibirTabuleiro();
     }
 
-    public void gamePlayerXIA() {
-        Prints prints = new Prints();
+    public void gameIA() {
         System.out.println("Escolha Player1: ");
-        player1 = escolhaPersonagem();
-        player2 = escolherPersonagemIA();
+        player1 = personagemPlayer();
+        player2 = personagemIA();
         System.out.println("Iniciando Duelo de Personagens!");
         System.out.println("---------------------------------");
         tabuleiro = new Tabuleiro(player1, player2);
@@ -128,17 +120,17 @@ public class Game {
             prints.imprimirStatus(player1, player2);
             tabuleiro.exibirTabuleiro();
             //Player 1
-            gameAcao(player1, player2);
+            executarTurnoPVP(player1, player2);
             //Player IA
-            gameAcaoIA(player2, player1);
+            executarTurnoIA(player2, player1);
         }
-        finalGame(player1, player2);
+        encerrarJogo(player1, player2);
     }
 
-    public Personagem escolherPersonagemIA() {
-        int escolha = numAleatorio.nextInt(1, 4); // vai gerar um valor de 0 a 2
+    private Personagem personagemIA() {
+        int escolha = numAleatorio.nextInt(1, 4);
         Personagem player = null;
-        System.out.println("IA estar pensando na melhor opção...");
+        System.out.println("A IA está analisando suas opções...");
         switch(escolha) {
             case 1:
                 player = new Arqueiro("Legolas");
@@ -157,7 +149,7 @@ public class Game {
         return player;
     }
 
-    public void gameAcaoIA(Personagem playerIA, Personagem player) {
+    private void executarTurnoIA(Personagem playerIA, Personagem player) {
         int distancia = tabuleiro.calcularDistancia();
         if (distancia > playerIA.getAlcanceDeAtaque()) {
             moverIA(playerIA, player);
@@ -168,7 +160,8 @@ public class Game {
                 playerIA.atacar(player);
             }
             else if (playerIA.getPontosDeVida() <= 25) {
-                playerIA.restaurarDefesa();
+                //playerIA.restaurarDefesa();
+                playerIA.atacar(player);
             }
             else {
                 playerIA.usarPoderEspecial(player);
@@ -176,7 +169,7 @@ public class Game {
         }
     }
 
-    public void moverIA(Personagem playerIA, Personagem player){
+    private void moverIA(Personagem playerIA, Personagem player){
         int linhaIA = playerIA.getLinha();
         int colunaIA = playerIA.getCol();
         int linhaPlayer = player.getLinha();
@@ -186,15 +179,15 @@ public class Game {
 
         if (moverColuna > moverLinha) {
             if (colunaIA > colunaPlayer)
-                tabuleiro.tentarMover(playerIA, linhaIA, colunaIA - 1); // Esquerda
+                tabuleiro.tentarExecutarMovimento(playerIA, linhaIA, colunaIA - 1);
             else
-                tabuleiro.tentarMover(playerIA, linhaIA, colunaIA + 1); // Direita
+                tabuleiro.tentarExecutarMovimento(playerIA, linhaIA, colunaIA + 1);
         }
         else {
             if (linhaIA > linhaPlayer)
-                tabuleiro.tentarMover(playerIA, linhaIA - 1, colunaIA); // Cima
+                tabuleiro.tentarExecutarMovimento(playerIA, linhaIA - 1, colunaIA);
             else
-                tabuleiro.tentarMover(playerIA, linhaIA + 1, colunaIA); // Baixo
+                tabuleiro.tentarExecutarMovimento(playerIA, linhaIA + 1, colunaIA);
         }
 
     }

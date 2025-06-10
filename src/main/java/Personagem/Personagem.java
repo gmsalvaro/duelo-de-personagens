@@ -11,7 +11,6 @@ public class Personagem { // Classe Mãe
     private int linha;
     private int coluna;
 
-    //Contrutor
      Personagem(String nome, int forcaDeAtaque, int forcaDeDefesa, int alcanceDeAtaque) {
         this.nome = nome;
         this.forcaDeAtaque = forcaDeAtaque;
@@ -23,7 +22,7 @@ public class Personagem { // Classe Mãe
         this.coluna = -1;
     }
 
-    //Getters
+
     public String getNome() {
         return nome;
     }
@@ -53,7 +52,6 @@ public class Personagem { // Classe Mãe
     }
 
 
-    //Setters
     public void setPontosDeVida(int pontosDeVida) {
         this.pontosDeVida = pontosDeVida;
     }
@@ -82,7 +80,6 @@ public class Personagem { // Classe Mãe
             forcaDeDefesa = 0;
             pontosDeVida = Math.max(0, pontosDeVida - danoRestante);
         }
-
     }
 
     public void restaurarDefesa() {
