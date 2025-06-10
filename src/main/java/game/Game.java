@@ -48,7 +48,11 @@ public class Game {
         if(Objects.equals(escolha, "S")){
             new Game();
         }
-        prints.agradecimentoFinal();
+        else
+        {
+            System.out.print("Obrigado por Jogar! ");
+          prints.agradecimentoFinal();
+        }
     }
 
     private Personagem personagemPlayer() {
@@ -99,11 +103,13 @@ public class Game {
             case "B":
                 tabuleiro.tentarExecutarMovimento(player, linha + 1, coluna);
                 break;
+
             case "E":
                 tabuleiro.tentarExecutarMovimento(player, linha, coluna + 1);
                 break;
             case "D":
                 tabuleiro.tentarExecutarMovimento(player, linha, coluna - 1);
+
                 break;
         }
         tabuleiro.exibirTabuleiro();
@@ -125,6 +131,7 @@ public class Game {
             executarTurnoIA(player2, player1);
         }
         encerrarJogo(player1, player2);
+
     }
 
     private Personagem personagemIA() {
@@ -167,8 +174,11 @@ public class Game {
             } else {
                 playerIA.atacar(player);
             }
+
         }
     }
+  
+  
 
     private void moverIA(Personagem playerIA, Personagem player){
         int linhaIA = playerIA.getLinha();

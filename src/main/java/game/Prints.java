@@ -102,6 +102,7 @@ public class Prints {
         System.out.println("=================================");
     }
 
+  
 
     public int lerOpcaoValidaInt(int[] opcoesValidas) {
         while (true) {
@@ -116,6 +117,7 @@ public class Prints {
                 System.out.println("Opção inválida. Por favor, digite uma das opções válidas.");
             } catch (NumberFormatException e) {
                 System.out.println("Entrada inválida. Por favor, digite um número.");
+
             }
         }
     }

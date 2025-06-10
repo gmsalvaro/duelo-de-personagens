@@ -89,8 +89,10 @@ public class Tabuleiro {
         }
 
 
+
         public void tentarExecutarMovimento(Personagem playerAcao, int novaLinha, int novaColuna){
             if (!verificaLimites(novaLinha, novaColuna)) {
+
                 System.out.println("Movimento inválido para " + playerAcao.getNome() + ": Posição (" + novaLinha + "," + novaColuna + ") fora dos limites do tabuleiro.");
                 return;
             }
