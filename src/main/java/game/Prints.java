@@ -15,8 +15,6 @@ public class Prints {
     }
 
     public int escolherModoDeJogo() {
-        int escolha = -1;
-        boolean entradaValida = false;
         System.out.println("\nEscolha o modo de jogo:");
         System.out.println("1. Jogador vs Jogador");
         System.out.println("2. Jogador vs IA");
@@ -25,28 +23,23 @@ public class Prints {
     }
 
     public void printDescricaoArqueiro() {
-        System.out.println("Especialista em ataques de longa distância.");
         System.out.println("Poder Especial: FLECHA PRECISA");
-        System.out.println("  - Aumenta permanentemente seu alcance em +1.");
+        System.out.println("Aumenta permanentemente seu alcance em +1.");
         System.out.println("Atributos: Ataque 8 | Defesa 5 | Alcance 5");
     }
     public void printDescricaoGuerreiro() {
-        System.out.println("Combatente corpo a corpo com alta resistência.");
         System.out.println("Poder Especial: CARGA BRUTAL");
-        System.out.println("  - Dobra seu dano de ataque temporariamente.");
+        System.out.println(" Dobra seu dano de ataque.");
         System.out.println("Atributos: Ataque 15 | Defesa 10 | Alcance 1");
     }
     public void printDescricaoMago() {
-        System.out.println("Mestre de magias que manipulam a vida.");
         System.out.println("Poder Especial: TROCA DE VIDA");
-        System.out.println("  - Troca seus PV com os do inimigo.");
+        System.out.println("Troca seus PV com os do inimigo.");
         System.out.println("Atributos: Ataque 10 | Defesa 7 | Alcance 3");
     }
 
 
     public int escolherPersonagem(){
-        int escolha = -1;
-        boolean entradaValida = false;
         System.out.println();
         System.out.println("1. Arqueiro");
         printDescricaoArqueiro();
@@ -80,10 +73,7 @@ public class Prints {
         return lerOpcaoValida(new int[]{1, 2, 3, 4});
     }
 
-
     public String escolherPosicao(){
-        int escolha = -1;
-        boolean entradaValida = false;
         System.out.println("C - CIMA");
         System.out.println("B - BAIXO");
         System.out.println("E - ESQUERDA");
@@ -92,19 +82,25 @@ public class Prints {
         return lerLetraValidaString(new String[]{"C", "B", "E", "D"});
     }
 
-
     public String mensagemFinal(Personagem player1, Personagem player2) {
-        int escolha = -1;
-        boolean entradaValida = false;
+        System.out.println("\n=================================");
+        System.out.println("           FIM DE JOGO");
+        System.out.println("=================================");
         if (player1.estaVivo()) {
-            System.out.println("Parabens ao " + player1.getNome());
+            System.out.println("Vitória de " + player1.getNome() + " ! ");
         } else {
-            System.out.println("Parabens ao " + player2.getNome());
+            System.out.println("Vitória de " + player2.getNome() + " ! ");
         }
-        System.out.println("Jogar Novamente?");
+        System.out.println("\nJogar Novamente?");
         System.out.println("SIM - DIGITE 'S' ");
         System.out.println("NÃO - DIGITE 'N' ");
         return lerLetraValidaString(new String[]{"S", "N"});
+    }
+
+    public void agradecimento(){
+        System.out.println("=================================");
+        System.out.println(" Obrigado por jogar Duelo de Personagens!");
+        System.out.println("=================================");
     }
 
 

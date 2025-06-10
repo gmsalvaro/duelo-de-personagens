@@ -28,7 +28,6 @@ public class Game {
         }
     }
 
-
     public void gamePlayerXPlayer() {
         //Escolha de Personagens
         Prints prints = new Prints();
@@ -53,8 +52,8 @@ public class Game {
         if(Objects.equals(escolha, "S")){
             new Game();
         }
+        prints.agradecimento();
     }
-
 
     public Personagem escolhaPersonagem() {
         Prints prints = new Prints();
