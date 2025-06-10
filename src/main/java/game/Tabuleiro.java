@@ -23,15 +23,16 @@ public class Tabuleiro {
             do {
                 linhaP1 = numAleatorio.nextInt(tamanho);
                 colunaP1 = numAleatorio.nextInt(tamanho);
-            } while (verificaVazia(linhaP1, colunaP1));
+            } while (!verificaVazia(linhaP1, colunaP1));
             player1.setPosition(linhaP1, colunaP1);
             posicionarTabuleiro(linhaP1, colunaP1, player1);
+
 
             int linhaP2, colunaP2;
             do {
                 linhaP2 = numAleatorio.nextInt(tamanho);
                 colunaP2 = numAleatorio.nextInt(tamanho);
-            } while (verificaVazia(linhaP2, colunaP2));
+            } while (!verificaVazia(linhaP2, colunaP2));
             player2.setPosition(linhaP2, colunaP2);
             posicionarTabuleiro(linhaP2, colunaP2, player2);
             System.out.println(player1.getNome() + " posicionado em (" + linhaP1 + "," + colunaP1 + ")");
@@ -91,7 +92,7 @@ public class Tabuleiro {
 
 
         public void tentarExecutarMovimento(Personagem playerAcao, int novaLinha, int novaColuna){
-            if (!verificaLimites(novaLinha, novaColuna)) {
+            if (verificaLimites(novaLinha, novaColuna)) {
 
                 System.out.println("Movimento inválido para " + playerAcao.getNome() + ": Posição (" + novaLinha + "," + novaColuna + ") fora dos limites do tabuleiro.");
                 return;
