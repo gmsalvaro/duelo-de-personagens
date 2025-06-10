@@ -38,6 +38,7 @@ public class Tabuleiro {
             System.out.println(player2.getNome() + " posicionado em (" + linhaP2 + "," + colunaP2 + ")");
         }
 
+
         private void posicionarTabuleiro(int linha, int coluna, Personagem personagem) {
                 tabuleiro[linha][coluna] = String.valueOf(personagem.getNome().charAt(0));
         }
