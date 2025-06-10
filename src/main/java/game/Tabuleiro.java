@@ -1,7 +1,5 @@
 package game;
-
 import Personagem.Personagem;
-
 import java.util.Random;
 
 
@@ -12,10 +10,10 @@ public class Tabuleiro {
         private Personagem player2;
         private Random numAleatorio = new Random();
 
-        public Tabuleiro(Personagem p1, Personagem p2) {
+        public Tabuleiro(Personagem player1, Personagem player2) {
             this.tabuleiro = new String[tamanho][tamanho];
-            this.player1 = p1;
-            this.player2 = p2;
+            this.player1 = player1;
+            this.player2 = player2;
             inicializaTabuleiro();
             definirPosicoesIniciaisAleatorias();
         }
@@ -40,8 +38,9 @@ public class Tabuleiro {
             System.out.println(player2.getNome() + " posicionado em (" + linhaP2 + "," + colunaP2 + ")");
         }
 
-        private void posicionarTabuleiro(int linha, int coluna, Personagem personagem) {
-                tabuleiro[linha][coluna] = String.valueOf(personagem.getNome().charAt(0));
+
+        private void posicionarTabuleiro(int linha, int coluna, Personagem player) {
+                tabuleiro[linha][coluna] = String.valueOf(player.getNome().charAt(0));
         }
 
         private void liberaPosicao(int linha, int coluna) {
@@ -56,15 +55,13 @@ public class Tabuleiro {
             }
         }
 
-        //Verificar se a posição estar Ocupada;
-
         private boolean verificaVazia(int linha, int coluna) {
             if (verificaLimites(linha, coluna)) {
-                return true;
+                return false;
             }
             boolean ocupadaPorP1 = (player1 != null && player1.getLinha() == linha && player1.getCol() == coluna);
             boolean ocupadaPorP2 = (player2 != null && player2.getLinha() == linha && player2.getCol() == coluna);
-            return ocupadaPorP1 || ocupadaPorP2;
+            return !(ocupadaPorP1 || ocupadaPorP2);
         }
 
         private boolean verificaLimites(int linha, int coluna) {
@@ -82,7 +79,7 @@ public class Tabuleiro {
             System.out.println("   " + "---".repeat(tamanho));
 
             for (int i = 0; i < tamanho; i++) {
-                System.out.printf("%2d |", i);
+                System.out.printf("%1d |", i);
                 for (int j = 0; j < tamanho; j++) {
                     System.out.print(tabuleiro[i][j] + "  ");
                 }
@@ -91,13 +88,15 @@ public class Tabuleiro {
             System.out.println("-----------------\n");
         }
 
-        //Alguns turnos ele simplesmente nao esta movendo-Corrigir!!!
-        public void tentarMover(Personagem playerAcao, int novaLinha, int novaColuna){
-            if (verificaLimites(novaLinha, novaColuna)) {
+
+
+        public void tentarExecutarMovimento(Personagem playerAcao, int novaLinha, int novaColuna){
+            if (!verificaLimites(novaLinha, novaColuna)) {
+
                 System.out.println("Movimento inválido para " + playerAcao.getNome() + ": Posição (" + novaLinha + "," + novaColuna + ") fora dos limites do tabuleiro.");
                 return;
             }
-            if(verificaVazia(novaLinha, novaColuna)){
+            if(!verificaVazia(novaLinha, novaColuna)){
                 if(playerAcao.getLinha() == novaLinha && playerAcao.getCol() == novaColuna){
                     System.out.println("Movimento inválido para " + playerAcao.getNome() + ": Posição (" + novaLinha + "," + novaColuna + ") voce já estar nessa posição.");
                     return;

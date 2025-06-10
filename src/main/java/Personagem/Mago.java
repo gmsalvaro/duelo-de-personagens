@@ -10,9 +10,9 @@ public class Mago extends Personagem {
         //Controle de uso
 
         System.out.println(getNome() + " ativa Troca de Vida!");
-        int aux = getPontosDeVida();
+        int auxVida = getPontosDeVida();
         setPontosDeVida(alvo.getPontosDeVida());
-        alvo.setPontosDeVida(aux);
+        alvo.setPontosDeVida(auxVida);
         System.out.println(getNome() + " agora tem " + getPontosDeVida() + " PV.");
         System.out.println(alvo.getNome() + " agora tem " + alvo.getPontosDeVida() + " PV.");
     }
