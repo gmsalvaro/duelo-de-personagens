@@ -53,6 +53,10 @@ public class Game {
         if(escolha == 1){
             new Game();
         }
+        else
+        {
+            System.out.print("Obrigado por Jogar! ");
+        }
     }
 
 
@@ -109,10 +113,10 @@ public class Game {
                 tabuleiro.tentarMover(player, linha + 1, coluna);
                 break;
             case 3:// Esquerda
-                tabuleiro.tentarMover(player, linha, coluna + 1);
+                tabuleiro.tentarMover(player, linha, coluna - 1);
                 break;
             case 4:// Direita
-                tabuleiro.tentarMover(player, linha, coluna - 1);
+                tabuleiro.tentarMover(player, linha, coluna + 1);
                 break;
         }
         tabuleiro.exibirTabuleiro();
@@ -134,7 +138,8 @@ public class Game {
             //Player IA
             gameAcaoIA(player2, player1);
         }
-        prints.mensagemFinal(player1, player2);
+        finalGame(player1, player2);
+
     }
 
     public Personagem escolherPersonagemIA() {
@@ -161,20 +166,23 @@ public class Game {
 
     public void gameAcaoIA(Personagem playerIA, Personagem player) {
         int distancia = tabuleiro.calcularDistancia();
-        if (distancia > playerIA.getAlcanceDeAtaque()) {
-            moverIA(playerIA, player);
-            return;
-        }
-        if (distancia <= playerIA.getAlcanceDeAtaque()) {
-            if (playerIA.getPontosDeVida() >= 50) {
-                playerIA.atacar(player);
+
+        if(playerIA.estaVivo()) {
+
+            if (distancia > playerIA.getAlcanceDeAtaque()) {
+                moverIA(playerIA, player);
+                return;
             }
-            else if (playerIA.getPontosDeVida() <= 25) {
-                playerIA.restaurarDefesa();
+            if (distancia <= playerIA.getAlcanceDeAtaque()) {
+                if (playerIA.getPontosDeVida() >= 50) {
+                    playerIA.atacar(player);
+                } else if (playerIA.getPontosDeVida() <= 25) {
+                    playerIA.restaurarDefesa();
+                } else {
+                    playerIA.usarPoderEspecial(player);
+                }
             }
-            else {
-                playerIA.usarPoderEspecial(player);
-            }
+
         }
     }
 
