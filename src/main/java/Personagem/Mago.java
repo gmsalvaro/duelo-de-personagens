@@ -5,7 +5,7 @@ public class Mago extends Personagem {
     public Mago(String nome) {
         super(nome, 10, 7, 3);
     }
-    public void usarPoderEspecial(Personagem alvo) {
+    public void usarPoderEspecial1(Personagem alvo) {
         System.out.println(getNome() + " ativa Troca de Vida!");
         int aux = getPontosDeVida();
         setPontosDeVida(alvo.getPontosDeVida());

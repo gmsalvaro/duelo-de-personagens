@@ -2,6 +2,7 @@ package game;
 import Personagem.Personagem;
 import Personagem.*;
 
+import java.util.Objects;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -44,13 +45,12 @@ public class Game {
             //Player 2
             gameAcao(player2, player1);
         }
-        finalGame(player1, player2);
     }
 
     public void finalGame(Personagem player1, Personagem player2) {
         Prints prints = new Prints();
-        int escolha = prints.mensagemFinal(player1, player2);
-        if(escolha == 1){
+        String escolha = prints.mensagemFinal(player1, player2);
+        if(Objects.equals(escolha, "S")){
             new Game();
         }
     }
@@ -77,7 +77,6 @@ public class Game {
     }
 
     public void gameAcao(Personagem atacante, Personagem defensor) {
-        // atacante representa quem vai executar a ação no turno e defensor quem receberá a ação
         Prints prints = new Prints();
         int escolhas = prints.escolherAcao();
         switch (escolhas) {
@@ -98,20 +97,20 @@ public class Game {
 
     public void mover(Personagem player) {
         Prints prints = new Prints();
-        int escolha = prints.escolherPosicao();
+        String escolha = prints.escolherPosicao();
         int linha = player.getLinha();
         int coluna = player.getCol();
         switch (escolha) {
-            case 1: // Cima
+            case "C": // Cima
                 tabuleiro.tentarMover(player, linha - 1, coluna);
                 break;
-            case 2://Baixo
+            case "B"://Baixo
                 tabuleiro.tentarMover(player, linha + 1, coluna);
                 break;
-            case 3:// Esquerda
+            case "E":// Esquerda
                 tabuleiro.tentarMover(player, linha, coluna + 1);
                 break;
-            case 4:// Direita
+            case "D":// Direita
                 tabuleiro.tentarMover(player, linha, coluna - 1);
                 break;
         }
@@ -134,7 +133,7 @@ public class Game {
             //Player IA
             gameAcaoIA(player2, player1);
         }
-        prints.mensagemFinal(player1, player2);
+        finalGame(player1, player2);
     }
 
     public Personagem escolherPersonagemIA() {

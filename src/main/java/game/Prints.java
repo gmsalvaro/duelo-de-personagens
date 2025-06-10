@@ -14,7 +14,6 @@ public class Prints {
         System.out.println("---------------------------------");
     }
 
-
     public int escolherModoDeJogo() {
         int escolha = -1;
         boolean entradaValida = false;
@@ -22,16 +21,9 @@ public class Prints {
         System.out.println("1. Jogador vs Jogador");
         System.out.println("2. Jogador vs IA");
         System.out.print("Qual sua escolha: ");
-        while (!entradaValida) {
-            escolha = teclado.nextInt();
-            if (escolha == 1 || escolha == 2) {
-                entradaValida = true;
-            } else {
-                System.out.println("Opção inválida. Por favor, digite 1 ou 2.");
-            }
-        }
-        return escolha;
+        return lerOpcaoValida(new int[]{1, 2});
     }
+
     public void printDescricaoArqueiro() {
         System.out.println("Especialista em ataques de longa distância.");
         System.out.println("Poder Especial: FLECHA PRECISA");
@@ -64,15 +56,7 @@ public class Prints {
         System.out.println();
         System.out.println("3. Mago");
         printDescricaoMago();
-        while (!entradaValida) {
-            escolha = teclado.nextInt();
-            if (escolha == 1 || escolha == 2 || escolha == 3) {
-                entradaValida = true;
-            } else {
-                System.out.println("Opção inválida. Por favor, digite 1, 2 ou 3.");
-            }
-        }
-        return escolha;
+        return lerOpcaoValida(new int[]{1, 2, 3});
     }
 
     public String escolherNome(){
@@ -89,44 +73,27 @@ public class Prints {
     }
 
     public int escolherAcao(){
-        int escolha = -1;
-        boolean entradaValida = false;
         System.out.println("1. Atacar");
         System.out.println("2. Defender");
         System.out.println("3. Mover");
         System.out.println("4. Ataque especial");
-        while (!entradaValida) {
-            escolha = teclado.nextInt();
-            if (escolha == 1 || escolha == 2 || escolha == 3 || escolha == 4) {
-            entradaValida = true;
-        } else {
-            System.out.println("Opção inválida. Por favor, digite 1, 2 ou 3.");
-        }
-        }
-        return escolha;
+        return lerOpcaoValida(new int[]{1, 2, 3, 4});
     }
 
 
-    public int escolherPosicao(){
+    public String escolherPosicao(){
         int escolha = -1;
         boolean entradaValida = false;
-        System.out.println("1. C");
-        System.out.println("2. B");
-        System.out.println("3. E");
-        System.out.println("4. D");
-        while (!entradaValida) {
-            escolha = teclado.nextInt();
-            if (escolha == 1 || escolha == 2 || escolha == 3 || escolha == 4) {
-                entradaValida = true;
-            } else {
-                System.out.println("Opção inválida. Por favor, digite 1, 2, 3 e 4.");
-            }
-        }
-        return escolha;
+        System.out.println("C - CIMA");
+        System.out.println("B - BAIXO");
+        System.out.println("E - ESQUERDA");
+        System.out.println("D - DIREITA");
+        System.out.print("Escolha a posição: ");
+        return lerLetraValidaString(new String[]{"C", "B", "E", "D"});
     }
 
 
-    public int mensagemFinal(Personagem player1, Personagem player2) {
+    public String mensagemFinal(Personagem player1, Personagem player2) {
         int escolha = -1;
         boolean entradaValida = false;
         if (player1.estaVivo()) {
@@ -135,16 +102,43 @@ public class Prints {
             System.out.println("Parabens ao " + player2.getNome());
         }
         System.out.println("Jogar Novamente?");
-        System.out.println("1 - SIM");
-        System.out.println("2 - NÃO");
-        while (!entradaValida) {
-            escolha = teclado.nextInt();
-            if (escolha == 1 || escolha == 2) {
-                entradaValida = true;
-            } else {
-                System.out.println("Opção inválida. Por favor, digite 1 ou 2.");
+        System.out.println("SIM - DIGITE 'S' ");
+        System.out.println("NÃO - DIGITE 'N' ");
+        return lerLetraValidaString(new String[]{"S", "N"});
+    }
+
+
+    public int lerOpcaoValida(int[] opcoesValidas) {
+        while (true) {
+            String entrada = teclado.nextLine().trim();
+            try {
+                int escolha = Integer.parseInt(entrada);
+                for (int opcoes : opcoesValidas) {
+                    if (escolha == opcoes) {
+                        return escolha;
+                    }
+                }
+                System.out.println("Opção inválida. Por favor, digite uma das opções válidas.");
+            } catch (NumberFormatException e) {
+                System.out.println("Entrada inválida. Por favor, digite um número.");
             }
         }
-        return escolha;
     }
+
+    public String lerLetraValidaString(String[] opcoesValidas) {
+        while (true) {
+            String entrada = teclado.nextLine().trim().toUpperCase();
+            for (String opcoes : opcoesValidas) {
+                if (entrada.equals(opcoes.toUpperCase())) {
+                    return entrada;
+                    }
+                }
+                System.out.println("Opção inválida. Por favor, digite uma das letras válidas.");
+            }
+        }
     }
+
+
+
+
+
