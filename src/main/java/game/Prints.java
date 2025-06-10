@@ -56,7 +56,7 @@ public class Prints {
         return teclado.nextLine();
     }
 
-    public void imprimirStatus( Personagem player1, Personagem player2){ //Melhorar depois
+    public void imprimirStatus( Personagem player1, Personagem player2){
         System.out.println("---------------------------------");
         System.out.printf("%-15s vs %-15s\n", player1.getNome(), player2.getNome());
         System.out.printf("PV: %-13d PV: %-13d\n", player1.getPontosDeVida(), player2.getPontosDeVida());

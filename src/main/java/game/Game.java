@@ -32,7 +32,7 @@ public class Game {
         System.out.println("Iniciando Duelo de Personagens!");
         System.out.println("---------------------------------");
         this.tabuleiro = new Tabuleiro(player1, player2);
-        while (player1.estaVivo() && player2.estaVivo()) { //Enquanto estiverem vivos vai rodar;
+        while (player1.estaVivo() && player2.estaVivo()) {
             prints.imprimirStatus(player1, player2);
             tabuleiro.exibirTabuleiro();
             //Player 1
