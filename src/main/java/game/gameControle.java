@@ -79,7 +79,6 @@ public class gameControle {
 
     private void executarTurnoPVP(personagem atacante, personagem defensor) {
         int escolhas = prints.escolherAcao();
-        int desistir;
         switch (escolhas) {
             case 1:
                 atacante.atacarPlayer(defensor);
