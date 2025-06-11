@@ -12,7 +12,7 @@ public class personagem {
     private int limitesPoderMax = 1;
     private int defesaMax = 4;
 
-     personagem(String nome, int forcaDeAtaque, int forcaDeDefesa, int alcanceDeAtaque) {
+      public personagem(String nome, int forcaDeAtaque, int forcaDeDefesa, int alcanceDeAtaque) {
         this.nome = nome;
         this.forcaDeAtaque = forcaDeAtaque;
         baseDefesa = forcaDeDefesa;

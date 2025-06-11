@@ -3,12 +3,12 @@ import personagens.*;
 import java.util.Objects;
 import java.util.Random;
 
-public class gameController {
+public class gameControle {
     private campoDoJogo tabuleiro;
     private personagem player1;
     private personagem player2;
     private Random numAleatorio = new Random();
-    private view prints = new view();
+    private prints prints = new prints();
 
     public void start() {
         prints.exibirMensagemInicial();
@@ -42,7 +42,7 @@ public class gameController {
     private void encerrarJogo(personagem player1, personagem player2) {
         String escolha = prints.mensagemFinal(player1, player2);
         if(Objects.equals(escolha, "S")){
-            new gameController();
+            new gameControle();
             start();
         }
         else

@@ -2,7 +2,7 @@ package game;
 import personagens.*;
 import java.util.Scanner;
 
-public class view {
+public class prints {
     private Scanner teclado = new Scanner(System.in);
 
     public void exibirMensagemInicial() {
