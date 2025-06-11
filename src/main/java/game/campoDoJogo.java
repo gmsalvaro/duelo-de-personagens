@@ -56,7 +56,7 @@ public class campoDoJogo {
         }
 
         private boolean verificarVazia(int linha, int coluna) {
-            if (verificarLimites(linha, coluna)) {
+            if (!verificarLimites(linha, coluna)) {
                 return false;
             }
             boolean ocupadaPorP1 = (player1 != null && player1.getLinha() == linha && player1.getCol() == coluna);
@@ -65,7 +65,7 @@ public class campoDoJogo {
         }
 
         private boolean verificarLimites(int linha, int coluna) {
-            return linha < 0 || linha >= tamanho || coluna < 0 || coluna >= tamanho;
+            return linha >= 0 && linha < tamanho && coluna >= 0 && coluna < tamanho;
         }
 
         public void exibirTabuleiro() { //
@@ -89,7 +89,7 @@ public class campoDoJogo {
         }
 
         public void tentarExecutarMovimento(personagem playerAcao, int novaLinha, int novaColuna){
-            if (verificarLimites(novaLinha, novaColuna)) {
+            if (!verificarLimites(novaLinha, novaColuna)) {
                 System.out.println("Movimento inválido para " + playerAcao.getNome() + ": Posição (" + novaLinha + "," + novaColuna + ") fora dos limites do tabuleiro.");
                 return;
             }

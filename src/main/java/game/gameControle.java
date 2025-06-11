@@ -20,6 +20,13 @@ public class gameControle {
         }
     }
 
+    private void reiniciarJogo() {
+        player1 = null;
+        player2 = null;
+        tabuleiro = null;
+        start();
+    }
+
     private void gamePlayerXPlayer() {
         player1 = personagemPlayer();
         player2 = personagemPlayer();
@@ -42,8 +49,8 @@ public class gameControle {
     private void encerrarJogo(personagem player1, personagem player2) {
         String escolha = prints.mensagemFinal(player1, player2);
         if(Objects.equals(escolha, "S")){
-            new gameControle();
-            start();
+            reiniciarJogo();
+
         }
         else
         {
