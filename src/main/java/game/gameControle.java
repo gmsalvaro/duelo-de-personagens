@@ -83,7 +83,7 @@ public class gameControle {
             case 1:
                 atacante.atacarPlayer(defensor);
                 break;
-            case 2://Defender
+            case 2:
                 if(atacante.getDefesaMax() > 0) {
                     atacante.restaurarDefesa();
                     atacante.setDefesaMax(atacante.getDefesaMax() - 1);
