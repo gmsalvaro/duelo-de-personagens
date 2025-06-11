@@ -1,14 +1,11 @@
-package Personagem;
+package personagens;
 
-public class Mago extends Personagem {
-
-    public Mago(String nome) {
+public class mago extends personagem {
+    public mago(String nome) {
         super(nome, 10, 7, 3);
     }
-    public void usarPoderEspecial(Personagem alvo) {
 
-        //Controle de uso
-
+    public void usarPoderEspecial(personagem alvo) {
         System.out.println(getNome() + " ativa Troca de Vida!");
         int auxVida = getPontosDeVida();
         setPontosDeVida(alvo.getPontosDeVida());
