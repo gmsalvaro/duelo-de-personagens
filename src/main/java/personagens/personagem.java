@@ -1,9 +1,8 @@
-package Personagem;
-import game.Tabuleiro;
+package personagens;
 
-public class Personagem { // Classe Mãe
+public class personagem {
     private String nome;
-    private int pontosDeVida; //PVD
+    private int pontosDeVida;
     private int forcaDeAtaque;
     private int forcaDeDefesa;
     private int baseDefesa;
@@ -13,7 +12,7 @@ public class Personagem { // Classe Mãe
     private int limitesPoderMax = 1;
     private int defesaMax = 4;
 
-     Personagem(String nome, int forcaDeAtaque, int forcaDeDefesa, int alcanceDeAtaque) {
+     personagem(String nome, int forcaDeAtaque, int forcaDeDefesa, int alcanceDeAtaque) {
         this.nome = nome;
         this.forcaDeAtaque = forcaDeAtaque;
         baseDefesa = forcaDeDefesa;
@@ -66,8 +65,7 @@ public class Personagem { // Classe Mãe
          this.pontosDeVida = pontosDeVida;
     }
 
-    public void setForcaDeAtaque(int forcaDeAtaque){
-         this.forcaDeAtaque = forcaDeAtaque; }
+    public void setForcaDeAtaque(int forcaDeAtaque){this.forcaDeAtaque = forcaDeAtaque; }
 
     public void setForcaDeDefesa(int forcaDeDefesa) {
         this.forcaDeDefesa = forcaDeDefesa;
@@ -85,20 +83,14 @@ public class Personagem { // Classe Mãe
         this.defesaMax = defesaMax;
     }
 
-    public void setPosition(int linha, int coluna) {
+    public void setPosicao(int linha, int coluna) {
         this.linha = linha;
         this.coluna = coluna;
     }
 
-
-    public void receberDano(int danoTotal) {
-        if (forcaDeDefesa >= danoTotal) {
-            forcaDeDefesa -= danoTotal;
-        } else {
-            int danoRestante = danoTotal - forcaDeDefesa;
-            forcaDeDefesa = 0;
-            pontosDeVida = Math.max(0, pontosDeVida - danoRestante);
-        }
+    protected void receberDano(int danoRecebido) {
+            int novoPV = getPontosDeVida() - danoRecebido;
+            setPontosDeVida(Math.max(0, novoPV));
     }
 
     public void restaurarDefesa() {
@@ -106,11 +98,11 @@ public class Personagem { // Classe Mãe
         System.out.println(this.nome + " restaurou sua defesa para " + this.forcaDeDefesa + ".");
     }
 
-    public int calcularDano(Personagem alvo) {
+    protected int calcularDano(personagem alvo) {
         return Math.max(0, this.forcaDeAtaque - alvo.getForcaDeDefesa());
     }
 
-    public void atacar(Personagem alvo) {
+    public void atacarPlayer(personagem alvo) {
         if(calcularDistancia(alvo) > getAlcanceDeAtaque()) {
             System.out.println("Erro: Alcance invalido");
             return;
@@ -129,13 +121,13 @@ public class Personagem { // Classe Mãe
         System.out.println("Defesa restante: " + alvo.getForcaDeDefesa());
     }
 
-    public int calcularDistancia( Personagem player2){
+    public int calcularDistancia( personagem player2){
         int distLinha = Math.abs(getLinha() - player2.getLinha());
         int distColuna = Math.abs(getCol() - player2.getCol());
         return Math.max(distLinha, distColuna);
     }
 
-    public void usarPoderEspecial(Personagem alvo) {}
+    public void usarPoderEspecial(personagem alvo) {}
 
     public boolean estaVivo() {
          return getPontosDeVida() > 0;

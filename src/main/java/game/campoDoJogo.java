@@ -1,16 +1,16 @@
 package game;
-import Personagem.Personagem;
+import personagens.*;
 import java.util.Random;
 
 
-public class Tabuleiro {
+public class campoDoJogo {
         private int tamanho = 10;
         private String[][] tabuleiro;
-        private Personagem player1;
-        private Personagem player2;
+        private personagem player1;
+        private personagem player2;
         private Random numAleatorio = new Random();
 
-        public Tabuleiro(Personagem player1, Personagem player2) {
+        public campoDoJogo(personagem player1, personagem player2) {
             this.tabuleiro = new String[tamanho][tamanho];
             this.player1 = player1;
             this.player2 = player2;
@@ -23,24 +23,23 @@ public class Tabuleiro {
             do {
                 linhaP1 = numAleatorio.nextInt(tamanho);
                 colunaP1 = numAleatorio.nextInt(tamanho);
-            } while (!verificaVazia(linhaP1, colunaP1));
-            player1.setPosition(linhaP1, colunaP1);
+            } while (!verificarVazia(linhaP1, colunaP1));
+            player1.setPosicao(linhaP1, colunaP1);
             posicionarTabuleiro(linhaP1, colunaP1, player1);
-
 
             int linhaP2, colunaP2;
             do {
                 linhaP2 = numAleatorio.nextInt(tamanho);
                 colunaP2 = numAleatorio.nextInt(tamanho);
-            } while (!verificaVazia(linhaP2, colunaP2));
-            player2.setPosition(linhaP2, colunaP2);
+            } while (!verificarVazia(linhaP2, colunaP2));
+            player2.setPosicao(linhaP2, colunaP2);
             posicionarTabuleiro(linhaP2, colunaP2, player2);
             System.out.println(player1.getNome() + " posicionado em (" + linhaP1 + "," + colunaP1 + ")");
             System.out.println(player2.getNome() + " posicionado em (" + linhaP2 + "," + colunaP2 + ")");
         }
 
 
-        private void posicionarTabuleiro(int linha, int coluna, Personagem player) {
+        private void posicionarTabuleiro(int linha, int coluna, personagem player) {
                 tabuleiro[linha][coluna] = String.valueOf(player.getNome().charAt(0));
         }
 
@@ -56,8 +55,8 @@ public class Tabuleiro {
             }
         }
 
-        private boolean verificaVazia(int linha, int coluna) {
-            if (verificaLimites(linha, coluna)) {
+        private boolean verificarVazia(int linha, int coluna) {
+            if (verificarLimites(linha, coluna)) {
                 return false;
             }
             boolean ocupadaPorP1 = (player1 != null && player1.getLinha() == linha && player1.getCol() == coluna);
@@ -65,7 +64,7 @@ public class Tabuleiro {
             return !(ocupadaPorP1 || ocupadaPorP2);
         }
 
-        private boolean verificaLimites(int linha, int coluna) {
+        private boolean verificarLimites(int linha, int coluna) {
             return linha < 0 || linha >= tamanho || coluna < 0 || coluna >= tamanho;
         }
 
@@ -89,23 +88,20 @@ public class Tabuleiro {
             System.out.println("-----------------\n");
         }
 
-
-
-        public void tentarExecutarMovimento(Personagem playerAcao, int novaLinha, int novaColuna){
-            if (verificaLimites(novaLinha, novaColuna)) {
-
+        public void tentarExecutarMovimento(personagem playerAcao, int novaLinha, int novaColuna){
+            if (verificarLimites(novaLinha, novaColuna)) {
                 System.out.println("Movimento inválido para " + playerAcao.getNome() + ": Posição (" + novaLinha + "," + novaColuna + ") fora dos limites do tabuleiro.");
                 return;
             }
-            if(!verificaVazia(novaLinha, novaColuna)){
-                if(playerAcao.getLinha() == novaLinha && playerAcao.getCol() == novaColuna){
-                    System.out.println("Movimento inválido para " + playerAcao.getNome() + ": Posição (" + novaLinha + "," + novaColuna + ") voce já estar nessa posição.");
-                    return;
-                }
-                System.out.println("Movimento inválido para " + playerAcao.getNome() + ": Posição (" + novaLinha + "," + novaColuna + ") já estar ocupado.");
+            if (playerAcao.getLinha() == novaLinha && playerAcao.getCol() == novaColuna) {
+                System.out.println("Movimento inválido para " + playerAcao.getNome() + ": Você já está na posição (" + novaLinha + "," + novaColuna + ").");
                 return;
             }
-            System.out.println(playerAcao.getNome() + " moveu de (" + playerAcao.getLinha()+ "," + playerAcao.getLinha() + ") para (" + novaLinha + "," + novaColuna + ").");
+            if (!verificarVazia(novaLinha, novaColuna)) {
+                System.out.println("Movimento inválido para " + playerAcao.getNome() + ": Posição (" + novaLinha + "," + novaColuna + ") já está ocupada.");
+                return;
+            }
+            System.out.println(playerAcao.getNome() + " moveu de (" + playerAcao.getLinha()+ "," + playerAcao.getCol() + ") para (" + novaLinha + "," + novaColuna + ").");
             moverPersonagem(playerAcao, novaLinha, novaColuna);
         }
 
@@ -116,10 +112,10 @@ public class Tabuleiro {
         }
 
 
-        private void moverPersonagem(Personagem playerAcao, int novaLinha, int novaColuna) {
+        private void moverPersonagem(personagem playerAcao, int novaLinha, int novaColuna) {
             int linhaAntiga = playerAcao.getLinha();
             int colunaAntiga = playerAcao.getCol();
-            playerAcao.setPosition(novaLinha, novaColuna);
+            playerAcao.setPosicao(novaLinha, novaColuna);
             liberaPosicao(linhaAntiga, colunaAntiga);
             posicionarTabuleiro(novaLinha, novaColuna, playerAcao);
         }

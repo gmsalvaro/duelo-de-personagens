@@ -1,9 +1,8 @@
 package game;
-import Personagem.Personagem;
-
+import personagens.*;
 import java.util.Scanner;
 
-public class Prints {
+public class view {
     private Scanner teclado = new Scanner(System.in);
 
     public void exibirMensagemInicial() {
@@ -56,9 +55,9 @@ public class Prints {
         return teclado.nextLine();
     }
 
-    public void imprimirStatus( Personagem player1, Personagem player2){
+    public void imprimirStatus(personagem player1, personagem player2){
         System.out.println("---------------------------------");
-        System.out.printf("%-15s vs %-15s\n", player1.getNome(), player2.getNome());
+        System.out.printf("%-15s  %-15s\n", player1.getNome(), player2.getNome());
         System.out.printf("PV: %-13d PV: %-13d\n", player1.getPontosDeVida(), player2.getPontosDeVida());
         System.out.printf("DEF: %-13d DEF: %-13d\n", player1.getForcaDeDefesa(), player2.getForcaDeDefesa());
         System.out.println("---------------------------------");
@@ -81,7 +80,7 @@ public class Prints {
         return lerLetraValidaString(new String[]{"C", "B", "E", "D"});
     }
 
-    public String mensagemFinal(Personagem player1, Personagem player2) {
+    public String mensagemFinal(personagem player1, personagem player2) {
         System.out.println("\n=================================");
         System.out.println("           FIM DE JOGO");
         System.out.println("=================================");
@@ -105,35 +104,48 @@ public class Prints {
   
 
     public int lerOpcaoValidaInt(int[] opcoesValidas) {
-        while (true) {
-            String entrada = teclado.nextLine().trim();
-            try {
-                int escolha = Integer.parseInt(entrada);
-                for (int opcoes : opcoesValidas) {
-                    if (escolha == opcoes) {
-                        return escolha;
-                    }
-                }
-                System.out.println("Opção inválida. Por favor, digite uma das opções válidas.");
-            } catch (NumberFormatException e) {
-                System.out.println("Entrada inválida. Por favor, digite um número.");
+            boolean valido = false;
+            String entrada = null;
+            int escolha = 0;
 
+            while (!valido) {
+                entrada = teclado.nextLine().trim();
+                try {
+                    escolha = Integer.parseInt(entrada);
+                    for (int op : opcoesValidas) {
+                        if (escolha == op) {
+                            valido = true;
+                            break;
+                        }
+                    }
+                    if (!valido) {
+                        System.out.println("Opção inválida. Por favor, digite uma das opções válidas.");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Entrada inválida. Por favor, digite um número.");
+                }
             }
+            return escolha;
         }
-    }
 
     public String lerLetraValidaString(String[] opcoesValidas) {
-        while (true) {
-            String entrada = teclado.nextLine().trim().toUpperCase();
-            for (String opcoes : opcoesValidas) {
-                if (entrada.equals(opcoes.toUpperCase())) {
-                    return entrada;
-                    }
+        boolean valido = false;
+        String entrada = null;
+        while (!valido) {
+            entrada = teclado.nextLine().trim().toUpperCase();
+            for (String op : opcoesValidas) {
+                if (entrada.equals(op.toUpperCase())) {
+                    valido = true;
+                    break;
                 }
+            }
+            if (!valido) {
                 System.out.println("Opção inválida. Por favor, digite uma das letras válidas.");
             }
         }
+        return entrada;
     }
+}
 
 
 
