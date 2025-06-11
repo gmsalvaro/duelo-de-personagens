@@ -79,6 +79,7 @@ public class gameControle {
 
     private void executarTurnoPVP(personagem atacante, personagem defensor) {
         int escolhas = prints.escolherAcao();
+        int desistir;
         switch (escolhas) {
             case 1:
                 atacante.atacarPlayer(defensor);
@@ -107,6 +108,10 @@ public class gameControle {
                     System.out.println("Você usou seu limite de poder maximos!");
                     executarTurnoPVP(atacante, defensor);
                 }
+                break;
+            case 5:
+                atacante.setPontosDeVida(0);
+                System.out.println("Voce desistiu da partida!");
                 break;
         }
     }
