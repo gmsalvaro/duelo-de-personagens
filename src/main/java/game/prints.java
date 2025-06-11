@@ -101,7 +101,6 @@ public class prints {
         System.out.println("=================================");
     }
 
-  
 
     public int lerOpcaoValidaInt(int[] opcoesValidas) {
             boolean valido = false;

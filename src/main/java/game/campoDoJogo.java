@@ -38,7 +38,6 @@ public class campoDoJogo {
             System.out.println(player2.getNome() + " posicionado em (" + linhaP2 + "," + colunaP2 + ")");
         }
 
-
         private void posicionarTabuleiro(int linha, int coluna, personagem player) {
                 tabuleiro[linha][coluna] = String.valueOf(player.getNome().charAt(0));
         }
@@ -107,7 +106,6 @@ public class campoDoJogo {
             int distColuna = Math.abs(player1.getCol() - player2.getCol());
             return Math.max(distLinha, distColuna);
         }
-
 
         private void moverPersonagem(personagem playerAcao, int novaLinha, int novaColuna) {
             int linhaAntiga = playerAcao.getLinha();
