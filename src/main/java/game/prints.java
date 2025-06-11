@@ -68,7 +68,8 @@ public class prints {
         System.out.println("2. Defender");
         System.out.println("3. Mover");
         System.out.println("4. Ataque especial");
-        return lerOpcaoValidaInt(new int[]{1, 2, 3, 4});
+        System.out.println("5. Desistir");
+        return lerOpcaoValidaInt(new int[]{1, 2, 3, 4, 5});
     }
 
     public String escolherPosicao(){
