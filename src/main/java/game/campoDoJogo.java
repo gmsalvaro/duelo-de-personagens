@@ -93,10 +93,7 @@ public class campoDoJogo {
                 System.out.println("Movimento inválido para " + playerAcao.getNome() + ": Posição (" + novaLinha + "," + novaColuna + ") fora dos limites do tabuleiro.");
                 return;
             }
-            if (playerAcao.getLinha() == novaLinha && playerAcao.getCol() == novaColuna) {
-                System.out.println("Movimento inválido para " + playerAcao.getNome() + ": Você já está na posição (" + novaLinha + "," + novaColuna + ").");
-                return;
-            }
+
             if (!verificarVazia(novaLinha, novaColuna)) {
                 System.out.println("Movimento inválido para " + playerAcao.getNome() + ": Posição (" + novaLinha + "," + novaColuna + ") já está ocupada.");
                 return;
